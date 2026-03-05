@@ -1,0 +1,61 @@
+{
+  "power_mas_flow": {
+    "images": [],
+    "videos": [
+      "powermasflow.mp4"
+    ]
+  },
+  "retreat_ool_wellness": {
+    "images": [
+      "Voeux-Ool-13.jpg",
+      "Voeux-Ool-15.jpg",
+      "Voeux-Ool-50.jpg",
+      "Voeux-Ool-61.jpg",
+      "VoeuxM-Ool-10.jpg",
+      "VoeuxM-Ool-33.jpg",
+      "VoeuxM-Ool-36.jpg",
+      "VoeuxM-Ool-5.jpg",
+      "VoeuxMedia_Ool-42.jpg"
+    ],
+    "videos": [
+      "Ool Enero_General.mp4",
+      "Ool Enero_Take a moment_1.mp4",
+      "Ool Reels_Experiencia.mp4",
+      "Ool Reels_Funcional.mp4",
+      "Ool Reels_Indoor.mp4"
+    ]
+  },
+  "ruta_redbull": {
+    "images": [
+      "RedBull_CDMX_DIC2025_4-3.jpg",
+      "VœuxMedia_RedBullOct-89.jpg",
+      "VœuxMedia_RedBullSorryPapi-39.jpg"
+    ],
+    "videos": []
+  },
+  "the_collective": {
+    "images": [],
+    "videos": [
+      "POWERFLOW_RECAP 1ST DAY.mp4",
+      "RECAP GENERAL.mp4"
+    ]
+  },
+  "xaak": {
+    "images": [],
+    "videos": [
+      "xaak_reapertura.mp4"
+    ]
+  },
+  "xcaret_lealtad": {
+    "images": [],
+    "videos": [
+      "xcaret_lealtad.mp4"
+    ]
+  },
+  "xcaret_xtar": {
+    "images": [],
+    "videos": [
+      "xcaret_xtar.mp4"
+    ]
+  }
+}

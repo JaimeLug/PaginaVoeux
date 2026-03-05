@@ -1,0 +1,277 @@
+/* --- PROJECT VIEW --- */
+.project-hero {
+    position: relative;
+    height: 80vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+
+.project-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.6) 35%,
+            rgba(0, 0, 0, 0.1) 70%,
+            rgba(0, 0, 0, 0) 100%);
+}
+
+.project-hero .hero-content {
+    position: relative;
+    z-index: 10;
+    padding: 5% 5% 10% 5%;
+    width: 100%;
+    text-align: center;
+}
+
+.project-brand {
+    display: block;
+    color: var(--accent-color, #d3d800);
+    font-family: var(--font-primary, 'Outfit');
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.project-title {
+    color: #ffffff;
+    font-family: var(--font-primary, 'Outfit');
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* Info Section */
+.project-info {
+    padding: 100px 5%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    background-color: #000000;
+}
+
+@media (min-width: 1024px) {
+    .project-info {
+        grid-template-columns: 2fr 1fr;
+        gap: 80px;
+    }
+}
+
+.info-description p {
+    color: var(--text-secondary, #a5a5a5);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-primary, 'Outfit');
+}
+
+.info-description .highlight-text {
+    color: var(--accent-color, #d3d800);
+    font-weight: 600;
+    margin-top: 2rem;
+}
+
+.specs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.specs-list li {
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
+    color: #ffffff;
+    font-size: 1rem;
+    font-family: var(--font-primary, 'Outfit');
+}
+
+.specs-list li:first-child {
+    padding-top: 0;
+}
+
+.spec-label {
+    color: var(--text-secondary, #a5a5a5);
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+/* ── Gallery Section ────────────────────────────────────────────────────── */
+.project-gallery {
+    padding: 0 0 100px 0;
+    background-color: #000000;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+}
+
+@media (min-width: 1025px) {
+    .project-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .project-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Videos: same square grid cell as images */
+.media-item--video {
+    aspect-ratio: 1/1;
+    background-color: #111;
+    overflow: hidden;
+    cursor: pointer;
+    content-visibility: auto;
+    contain-intrinsic-size: 100px 400px;
+}
+
+.media-item--video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.media-item--video:hover video {
+    transform: scale(1.05);
+}
+
+/* Images: square cells with zoom on hover */
+.media-item--image {
+    aspect-ratio: 1/1;
+    background-color: #111;
+    overflow: hidden;
+    cursor: pointer;
+    content-visibility: auto;
+    contain-intrinsic-size: 100px 400px;
+}
+
+.media-item--image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.media-item--image:hover img {
+    transform: scale(1.05);
+}
+
+/* Loading state */
+.gallery-loading {
+    color: var(--text-secondary, #a5a5a5);
+    font-family: var(--font-primary, 'Outfit');
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 60px;
+    grid-column: 1 / -1;
+}
+
+/* ── Lightbox ────────────────────────────────────────────────────────────── */
+#voeux-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#voeux-lightbox.lb-open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.lb-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.93);
+    cursor: zoom-out;
+}
+
+.lb-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    z-index: 10001;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    line-height: 1;
+    padding: 8px;
+}
+
+.lb-close:hover {
+    opacity: 1;
+}
+
+.lb-media {
+    position: relative;
+    z-index: 10000;
+    max-width: 92vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lb-media img {
+    max-width: 92vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+    display: block;
+}
+
+.lb-media video {
+    max-width: 92vw;
+    max-height: 90vh;
+    border-radius: 4px;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+    display: block;
+}
+
+/* Cursor hint on gallery items */
+.media-item--image,
+.media-item--video {
+    cursor: zoom-in;
+}

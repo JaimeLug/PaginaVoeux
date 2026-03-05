@@ -1,0 +1,61 @@
+:root {
+    --bg-color: #000000;
+    --accent-color: #d3d800;
+    --text-primary: #ffffff;
+    --text-secondary: #a5a5a5;
+    --font-primary: 'Outfit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background-color: var(--bg-color);
+    font-family: var(--font-primary);
+    color: var(--text-primary);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Shell Layout */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+#app-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+#app-content.fade-out {
+    opacity: 0;
+}
+
+/* Helper classes */
+.hidden {
+    display: none !important;
+}
+
+.preload * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}

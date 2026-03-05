@@ -1,0 +1,95 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent !important;
+    pointer-events: none;
+    /* Allows clicks to pass through empty header space */
+}
+
+@media (min-width: 768px) {
+    .header {
+        padding: 40px 60px;
+    }
+}
+
+.logo {
+    max-height: 35px;
+    width: auto;
+    mix-blend-mode: difference;
+    position: relative;
+    z-index: 50;
+    pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+    .logo {
+        max-height: 50px;
+    }
+}
+
+.menu-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    position: relative;
+    z-index: 102;
+    pointer-events: auto;
+    border-radius: 8px;
+    /* Slightly rounded for the background effect */
+    transition: background-color 0.3s ease;
+}
+
+.menu-btn .line {
+    width: 30px;
+    height: 2px;
+    background-color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+/* --- HOVER EFFECTS --- */
+@media (hover: hover) and (pointer: fine) {
+    .menu-btn:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Semitransparent dark background */
+    }
+
+    .menu-btn:hover .line {
+        background-color: var(--accent-color);
+        /* Corporate Green #d3d800 */
+    }
+}
+
+.dynamic-header-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: auto;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 101;
+}
+
+@media (max-width: 768px) {
+    .dynamic-header-center {
+        width: 70%;
+    }
+}

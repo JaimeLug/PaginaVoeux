@@ -1,0 +1,96 @@
+#global-footer {
+    background-color: #000000;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    /* Tipografía */
+    font-family: 'Area Normal', 'Outfit', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #a5a5a5;
+
+    /* Layout Móvil Estricto */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.footer-block {
+    display: flex;
+}
+
+.footer-block-a {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    order: 2;
+    /* Abajo en Móvil */
+}
+
+.footer-block-b {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 25px;
+    order: 1;
+    /* Arriba en Móvil */
+}
+
+.legal-text,
+.legal-link {
+    color: #a5a5a5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.social-icon {
+    color: #a5a5a5;
+    display: inline-flex;
+    transition: color 0.3s ease;
+}
+
+.social-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* --- HOVER EFFECTS --- */
+@media (hover: hover) and (pointer: fine) {
+
+    .legal-link:hover,
+    .social-icon:hover,
+    .legal-text:hover {
+        color: var(--accent-color, #d3d800);
+        cursor: pointer;
+    }
+}
+
+/* --- DESKTOP --- */
+@media (min-width: 769px) {
+    #global-footer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 60px;
+        border-top: 1px solid rgba(165, 165, 165, 0.2);
+    }
+
+    .footer-block-a {
+        flex-direction: row;
+        gap: 40px;
+        order: 1;
+        margin-bottom: 0;
+    }
+
+    .footer-block-b {
+        gap: 20px;
+        order: 2;
+        margin-bottom: 0;
+    }
+}

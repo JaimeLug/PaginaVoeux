@@ -1,0 +1,14 @@
+{
+  "name": "pagina-voeux",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "thumbs": "node scripts/generate-thumbs.js",
+    "gallery": "node scripts/generate-gallery.js",
+    "build": "npm run thumbs && npm run gallery",
+    "serve": "npx http-server -p 8080"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.4"
+  }
+}

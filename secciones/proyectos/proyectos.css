@@ -1,0 +1,177 @@
+/* --- INJECTED PROYECTOS HEADER --- */
+.proyectos-header-injected {
+    text-align: center;
+    display: flex;
+    flex-direction: column-reverse;
+    /* Portafolio on top of Nuestro Trabajo */
+    align-items: center;
+}
+
+.proyectos-subtitle-injected {
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+    color: var(--text-secondary, #a5a5a5);
+    margin: 0;
+    margin-top: 3px;
+    text-transform: uppercase;
+    font-family: var(--font-primary, 'Outfit');
+}
+
+.proyectos-title-injected {
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    color: var(--text-primary, #ffffff);
+    margin: 0;
+    font-family: var(--font-primary, 'Outfit');
+}
+
+/* --- PORTFOLIO SECTION --- */
+.portfolio-section {
+    display: grid;
+    gap: 0;
+    width: 100%;
+    background-color: #000000;
+    position: relative;
+    z-index: 10;
+    /* Mobile-first: 1 column */
+    grid-template-columns: 1fr;
+    padding-top: 90px;
+}
+
+@media (min-width: 769px) {
+    .portfolio-section {
+        grid-template-columns: repeat(2, 1fr);
+        padding-top: 130px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .portfolio-section {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.project-card {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #111;
+}
+
+/* Borde de hover: pseudo-elemento encima de la imagen */
+.project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 0px solid var(--accent-color, #d3d800);
+    transition: border-width 0.25s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* --- SMART LAST CARD: se adapta según cuánto espacio ocupa en la fila --- */
+
+/* MÓVIL (1 col): siempre normal */
+@media (max-width: 768px) {
+    .portfolio-section .project-card:last-child {
+        grid-column: span 1;
+        aspect-ratio: 16/9;
+    }
+}
+
+/* TABLET (2 cols): detecta si está solo o completando fila */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    /* Solo en fila → ocupa los 2 cols */
+    .portfolio-section .project-card:last-child:nth-child(2n+1) {
+        grid-column: 1 / -1;
+        aspect-ratio: 32/9;
+        /* 16/9 × 2 cols = misma altura */
+    }
+
+    /* Completa la fila → normal */
+    .portfolio-section .project-card:last-child:nth-child(2n) {
+        grid-column: span 1;
+        aspect-ratio: 16/9;
+    }
+}
+
+/* DESKTOP (3 cols): detecta 1, 2 o 3 en la última fila */
+@media (min-width: 1025px) {
+
+    /* Solo en fila → ocupa los 3 cols */
+    .portfolio-section .project-card:last-child:nth-child(3n+1) {
+        grid-column: 1 / -1;
+        aspect-ratio: 48/9;
+        /* 16/9 × 3 cols = misma altura */
+    }
+
+    /* Comparte fila con 1 → ocupa 2 cols restantes */
+    .portfolio-section .project-card:last-child:nth-child(3n+2) {
+        grid-column: span 2;
+        aspect-ratio: 32/9;
+        /* 16/9 × 2 cols = misma altura */
+    }
+
+    /* Completa la fila → normal */
+    .portfolio-section .project-card:last-child:nth-child(3n) {
+        grid-column: span 1;
+        aspect-ratio: 16/9;
+    }
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease-out;
+}
+
+.project-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.2) 100%);
+    opacity: 1 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+}
+
+/* Hover effects */
+@media (hover: hover) {
+    .project-card:hover::after {
+        border-width: 3px;
+    }
+
+    .project-card:hover .project-img {
+        transform: scale(1.05);
+    }
+}
+
+/* Touch active effects */
+.project-card:active .project-img {
+    transform: scale(1.05);
+}
+
+.brand-name {
+    color: var(--accent-color, #d3d800);
+    font-family: var(--font-primary, 'Outfit');
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.project-name {
+    color: #ffffff;
+    font-family: var(--font-primary, 'Outfit');
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
