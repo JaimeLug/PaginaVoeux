@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadJS('js/projectsData.js');
 
     // Remove preload class to enable transitions after initial DOM and components load
-    document.body.classList.remove('preload');
+    // The preload class will be removed when the preloader hides
 
     // 2. Setup simple router based on hash
     window.addEventListener('hashchange', router);
@@ -213,4 +213,23 @@ document.addEventListener('dragstart', function (e) {
     if (e.target.nodeName.toUpperCase() === "IMG" || e.target.nodeName.toUpperCase() === "A") {
         e.preventDefault();
     }
+});
+
+// =========================================
+// PRELOADER LOGIC (FOUC MITIGATION - 1 SECOND MINIMUM)
+// =========================================
+window.addEventListener('load', () => {
+    // Forzar pantalla de carga por lo menos 1 segundo
+    setTimeout(() => {
+        // Restaurar scroll
+        document.body.style.overflow = '';
+
+        // Desaparecer preloader y remover clase preload si aún existe
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.classList.add('preloader-hidden');
+        }
+
+        document.body.classList.remove('preload');
+    }, 1000); // 1000 milisegundos = 1 segundo
 });

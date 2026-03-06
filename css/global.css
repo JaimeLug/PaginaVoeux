@@ -142,3 +142,50 @@ iframe {
     background-color: var(--accent-color, #d3d800);
     color: #000000;
 }
+
+/* =========================================
+   PRELOADER Y CRITICAL CSS FALLBACK
+   ========================================= */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.preloader.preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(211, 216, 0, 0.3);
+    border-radius: 50%;
+    border-top-color: #d3d800;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Restaurar visibilidad de íconos (Critical CSS fallback) */
+body:not(.preload) svg,
+body:not(.preload) i,
+body:not(.preload) .icon,
+body:not(.preload) header .logo {
+    visibility: visible !important;
+    width: auto !important;
+    height: auto !important;
+}
