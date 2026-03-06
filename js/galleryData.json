@@ -10,7 +10,14 @@
     ]
   },
   "byd_club": {
-    "images": [],
+    "images": [
+      "BYDTestDrive2025-PDC-2-11.jpg",
+      "BYDTestDrive2025-PDC-2-27.jpg",
+      "BYDTestDrive2025-PDC-2-30.jpg",
+      "BYDTestDrive2025-PDC-3.jpg",
+      "BYDTestDrive2025-PDC-8.jpg",
+      "C8888T01.JPG"
+    ],
     "videos": [
       {
         "type": "vimeo",
@@ -20,7 +27,13 @@
     ]
   },
   "circulo_dorado": {
-    "images": [],
+    "images": [
+      "FestivalCirculoDeOro2026-50.jpg",
+      "FestivalCirculoDeOro2026_2-3.jpg",
+      "FestivalCirculoDeOro2026_3-19.jpg",
+      "FestivalCirculoDeOro2026_3-4.jpg",
+      "FestivalCirculoDeOro2026_3-78.jpg"
+    ],
     "videos": [
       {
         "type": "vimeo",
@@ -30,7 +43,9 @@
     ]
   },
   "multimedios_tolka": {
-    "images": [],
+    "images": [
+      "Multimedios_-29.jpg"
+    ],
     "videos": [
       {
         "type": "vimeo",
@@ -122,7 +137,15 @@
   },
   "xaak": {
     "images": [
-      "poster.png"
+      "poster.png",
+      "VœuxMedia_ReaperturaXaakHXA-18.jpg",
+      "VœuxMedia_ReaperturaXaakHXA-2.jpg",
+      "VœuxMedia_ReaperturaXaakHXA-32.jpg",
+      "VœuxMedia_ReaperturaXaakHXA-42.jpg",
+      "VœuxMedia_ReaperturaXaakHXA-53.jpg",
+      "VœuxMedia_ReaperturaXaakHXA-68.jpg",
+      "VœuxMedia_ReaperturaXaakHXA-79.jpg",
+      "VœuxMedia_ReaperturaXaakHXA-97.jpg"
     ],
     "videos": [
       {
