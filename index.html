@@ -8,13 +8,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Carga CSS Global -->
-    <link rel="preload" href="css/global.css" as="style">
-    <link rel="stylesheet" href="css/global.css">
+    <!-- Carga CSS Global (Con Cache-Busting) -->
+    <link rel="preload" href="css/global.css?v=1.1" as="style">
+    <link rel="stylesheet" href="css/global.css?v=1.1">
     
     <!-- Critical CSS para evitar FOUC -->
     <style id="critical-css">
-        body { background-color: #000000; margin: 0; padding: 0; overflow: hidden; }
+        body { background-color: #000000; margin: 0; padding: 0; }
+        body.preload { overflow: hidden; }
         svg, i, .icon, header .logo { visibility: hidden !important; width: 0 !important; height: 0 !important; }
     </style>
 
@@ -44,8 +45,8 @@
     <!-- Contenedor del Side Menu -->
     <div id="menu-container"></div>
 
-    <!-- Script Orquestador -->
-    <script src="js/app.js"></script>
+    <!-- Script Orquestador (Con Cache-Busting) -->
+    <script src="js/app.js?v=1.1"></script>
 
     <!-- Cookie Banner Global -->
     <div id="cookie-banner" class="cookie-banner" style="display: none;">

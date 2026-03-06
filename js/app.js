@@ -221,9 +221,6 @@ document.addEventListener('dragstart', function (e) {
 window.addEventListener('load', () => {
     // Forzar pantalla de carga por lo menos 1 segundo
     setTimeout(() => {
-        // Restaurar scroll
-        document.body.style.overflow = '';
-
         // Desaparecer preloader y remover clase preload si aún existe
         const preloader = document.getElementById('preloader');
         if (preloader) {
