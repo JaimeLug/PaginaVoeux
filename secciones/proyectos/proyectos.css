@@ -39,7 +39,7 @@
     z-index: 10;
     /* Mobile-first: 1 column */
     grid-template-columns: 1fr;
-    padding-top: 90px;
+    padding-top: 140px;
 }
 
 @media (min-width: 769px) {

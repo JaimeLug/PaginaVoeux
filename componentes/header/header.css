@@ -89,7 +89,16 @@
 }
 
 @media (max-width: 768px) {
+    .header {
+        flex-wrap: wrap;
+    }
+
     .dynamic-header-center {
-        width: 70%;
+        position: static;
+        transform: none;
+        flex: 1 1 100%;
+        width: 100%;
+        padding: 15px 0 0 0;
+        order: 3;
     }
 }
