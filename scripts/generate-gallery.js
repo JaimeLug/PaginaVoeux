@@ -27,6 +27,15 @@ function getFiles(dir, regex) {
 
     const galleryData = {};
 
+    let existingData = {};
+    if (fs.existsSync(OUTPUT_FILE)) {
+        try {
+            existingData = JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf8'));
+        } catch (e) {
+            console.warn("  ⚠️ No se pudo leer el manifest existente, se creará uno nuevo.");
+        }
+    }
+
     // Get all slug directories from images
     if (fs.existsSync(IMAGENES_ROOT)) {
         const slugDirs = fs.readdirSync(IMAGENES_ROOT, { withFileTypes: true })
@@ -35,20 +44,19 @@ function getFiles(dir, regex) {
 
         for (const slug of slugDirs) {
             const imgDir = path.join(IMAGENES_ROOT, slug);
-            const vidDir = path.join(VIDEOS_ROOT, slug);
 
             // Get images, excluding covers
             const images = getFiles(imgDir, IMG_EXTS).filter(f => !/^portada\.(jpg|jpeg|png|webp)$/i.test(f));
 
-            // Get videos
-            const videos = getFiles(vidDir, VID_EXTS);
+            // Preservar los videos en formato de objetos Vimeo que ya existan en el JSON
+            const existingVideos = existingData[slug] && existingData[slug].videos ? existingData[slug].videos : [];
 
-            if (images.length > 0 || videos.length > 0) {
+            if (images.length > 0 || existingVideos.length > 0) {
                 galleryData[slug] = {
                     images: images,
-                    videos: videos
+                    videos: existingVideos
                 };
-                console.log(`  ✓ Encontrados en ${slug}: ${images.length} imágenes, ${videos.length} videos`);
+                console.log(`  ✓ Encontrados en ${slug}: ${images.length} imágenes. Se conservaron ${existingVideos.length} videos (Vimeo).`);
             }
         }
     }

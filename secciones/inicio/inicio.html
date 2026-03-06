@@ -1,7 +1,17 @@
 <section class="hero-section">
     <div class="video-background">
-        <video id="bg-video-1" class="bg-video active" autoplay muted playsinline></video>
-        <video id="bg-video-2" class="bg-video" autoplay muted playsinline></video>
+        <!-- Estructura para Vimeo: Contenedor 1 -->
+        <div id="vimeo-container-1" class="bg-vimeo active">
+            <iframe id="bg-video-1" class="video-horizontal" src="https://player.vimeo.com/video/1170429174?background=1&autoplay=1&muted=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Vimeo Background 1"></iframe>
+            <img id="vimeo-poster-1" class="vimeo-poster" src="imagenes/xcaret_xtar/poster.png" alt="Poster 1">
+        </div>
+
+        <!-- Estructura para Vimeo: Contenedor 2 -->
+        <div id="vimeo-container-2" class="bg-vimeo">
+            <iframe id="bg-video-2" class="video-horizontal" src="https://player.vimeo.com/video/1170429044?background=1&autoplay=1&muted=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Vimeo Background 2"></iframe>
+            <img id="vimeo-poster-2" class="vimeo-poster" src="imagenes/xcaret_lealtad/poster.png" alt="Poster 2">
+        </div>
+
         <div class="video-overlay"></div>
         <div class="pattern-overlay"></div>
     </div>

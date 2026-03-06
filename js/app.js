@@ -15,6 +15,34 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Initial route check
     router();
+
+    // 3. Cookie Banner Logic
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('btn-accept-cookies');
+    const configBtn = document.getElementById('btn-config-cookies');
+
+    if (cookieBanner) {
+        if (!localStorage.getItem('cookiesAccepted')) {
+            cookieBanner.style.display = 'flex'; // Show banner if no cookies accepted
+        }
+
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookiesAccepted', 'true');
+                cookieBanner.classList.add('hide'); // Apply fade-out translation
+                setTimeout(() => {
+                    cookieBanner.style.display = 'none'; // Fully hide after transition
+                }, 500);
+            });
+        }
+
+        if (configBtn) {
+            configBtn.addEventListener('click', () => {
+                // Placeholder for future configuration modal
+                console.log('Open cookie configuration');
+            });
+        }
+    }
 });
 
 // Cache for loaded scripts/styles to prevent duplicating them
@@ -88,7 +116,9 @@ const routes = {
     '#proyectos': 'proyectos',
     '#filosofia': 'filosofia',
     '#contacto': 'contacto',
-    '#proyecto': 'proyecto'
+    '#proyecto': 'proyecto',
+    '#/privacidad': 'privacidad',
+    '#/terminos': 'terminos'
 };
 
 async function router() {
@@ -115,14 +145,23 @@ async function router() {
     await new Promise(resolve => setTimeout(resolve, 500));
 
     appContent.innerHTML = ''; // Clear current content
+    window.scrollTo(0, 0); // Make sure we scroll to top on new section
 
     // We dispatch a custom event to allow previous section's JS to cleanup if needed (like timers)
     window.dispatchEvent(new Event('section-unload'));
 
     // Path structure for sections
-    const htmlPath = `secciones/${sectionName}/${sectionName}.html`;
-    const cssPath = `secciones/${sectionName}/${sectionName}.css`;
-    const jsPath = `secciones/${sectionName}/${sectionName}.js`;
+    let htmlPath, cssPath, jsPath;
+
+    if (sectionName === 'privacidad' || sectionName === 'terminos') {
+        htmlPath = `secciones/legales/${sectionName}.html`;
+        cssPath = `secciones/legales/legales.css`;
+        jsPath = null;
+    } else {
+        htmlPath = `secciones/${sectionName}/${sectionName}.html`;
+        cssPath = `secciones/${sectionName}/${sectionName}.css`;
+        jsPath = `secciones/${sectionName}/${sectionName}.js`;
+    }
 
     await loadComponent('app-content', htmlPath, cssPath, jsPath);
 
@@ -141,3 +180,37 @@ async function router() {
         }));
     }, 50);
 }
+
+// Global helper for extracting Vimeo IDs
+function extractVimeoId(input) {
+    if (!input || input === 'PENDIENTE') return null;
+    // Regex para encontrar secuencias de dígitos después de vimeo.com/ o video/
+    const regex = /(?:vimeo\.com\/(?:video\/)?|vimeo\.com\/[a-zA-Z0-9_-]+\/|player\.vimeo\.com\/video\/)(\d+)/;
+    const match = input.match(regex);
+    return match ? match[1] : null;
+}
+
+// --- Global Security Module ---
+// 1. Bloquear el menú contextual (Clic derecho)
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+});
+
+// 2. Bloquear atajos de teclado comunes para guardar o inspeccionar
+document.addEventListener('keydown', function (e) {
+    // Bloquear Ctrl+S (Guardar página) o Cmd+S en Mac
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+    }
+    // Bloquear Ctrl+P (Imprimir página) o Cmd+P
+    if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+    }
+});
+
+// 3. Prevenir arrastre nativo por si el CSS falla en navegadores antiguos
+document.addEventListener('dragstart', function (e) {
+    if (e.target.nodeName.toUpperCase() === "IMG" || e.target.nodeName.toUpperCase() === "A") {
+        e.preventDefault();
+    }
+});

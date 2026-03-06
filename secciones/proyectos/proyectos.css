@@ -74,54 +74,26 @@
     z-index: 10;
 }
 
-/* --- SMART LAST CARD: se adapta según cuánto espacio ocupa en la fila --- */
+/* --- SMART CARD SIZING (Dynamic Span) --- */
 
 /* MÓVIL (1 col): siempre normal */
 @media (max-width: 768px) {
-    .portfolio-section .project-card:last-child {
+
+    /* En móvil, independientemente del gridSpan, forzamos a 1 columna */
+    .portfolio-section .project-card.span-2-cols {
         grid-column: span 1;
         aspect-ratio: 16/9;
+        /* o 4/3 según prefieras, mantengo el original 16/9 que tenían en móvil */
     }
 }
 
-/* TABLET (2 cols): detecta si está solo o completando fila */
-@media (min-width: 769px) and (max-width: 1024px) {
-
-    /* Solo en fila → ocupa los 2 cols */
-    .portfolio-section .project-card:last-child:nth-child(2n+1) {
-        grid-column: 1 / -1;
-        aspect-ratio: 32/9;
-        /* 16/9 × 2 cols = misma altura */
-    }
-
-    /* Completa la fila → normal */
-    .portfolio-section .project-card:last-child:nth-child(2n) {
-        grid-column: span 1;
-        aspect-ratio: 16/9;
-    }
-}
-
-/* DESKTOP (3 cols): detecta 1, 2 o 3 en la última fila */
-@media (min-width: 1025px) {
-
-    /* Solo en fila → ocupa los 3 cols */
-    .portfolio-section .project-card:last-child:nth-child(3n+1) {
-        grid-column: 1 / -1;
-        aspect-ratio: 48/9;
-        /* 16/9 × 3 cols = misma altura */
-    }
-
-    /* Comparte fila con 1 → ocupa 2 cols restantes */
-    .portfolio-section .project-card:last-child:nth-child(3n+2) {
+/* TABLET & DESKTOP: Soporte para gridSpan 2 */
+@media (min-width: 769px) {
+    .portfolio-section .project-card.span-2-cols {
         grid-column: span 2;
-        aspect-ratio: 32/9;
-        /* 16/9 × 2 cols = misma altura */
-    }
-
-    /* Completa la fila → normal */
-    .portfolio-section .project-card:last-child:nth-child(3n) {
-        grid-column: span 1;
-        aspect-ratio: 16/9;
+        /* Al tomar 2 columnas (ancho doble), si queremos la MISMA altura 
+           que un "card" de 1 columna (16/9), la proporción matemática es 32/9. */
+        aspect-ratio: 32 / 9;
     }
 }
 

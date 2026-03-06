@@ -43,10 +43,18 @@
 
 .legal-text,
 .legal-link {
+    font-family: 'Area Normal', 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     color: #a5a5a5;
     text-decoration: none;
     transition: color 0.3s ease;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
 }
 
 .social-icon {
@@ -86,6 +94,7 @@
         gap: 40px;
         order: 1;
         margin-bottom: 0;
+        align-items: center;
     }
 
     .footer-block-b {
@@ -93,4 +102,25 @@
         order: 2;
         margin-bottom: 0;
     }
+}
+
+/* --- EASTER EGG --- */
+.dev-signature {
+    /* Hacer el texto del mismo color que el fondo del footer (asumiendo que es negro #000) */
+    color: #000000;
+    font-size: 0.5rem;
+    font-family: 'Area Normal', 'Outfit', sans-serif;
+    margin-left: 20px;
+    /* Separación sutil del copyright */
+    transition: color 0.4s ease-in-out;
+    cursor: crosshair;
+    /* Un cursor especial para darle el toque hacker/secreto */
+    user-select: none;
+    /* Evitar que lo resalten arrastrando el mouse */
+}
+
+/* El efecto de revelación al pasar el mouse */
+.dev-signature:hover {
+    color: #d3d800;
+    /* Verde corporativo de Voeux Media */
 }

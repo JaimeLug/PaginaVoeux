@@ -10,6 +10,7 @@ const PROJECTS_DATA = {
         id: 'ool-wellness',
         brand: 'OOL WELLNESS FOR ALL',
         title: 'RETREAT OOL WELLNESS',
+        gridSpan: 2,
         description: [
             'Estuvimos presentes en el primer retiro wellness de OOL Wellness For All, una experiencia de tres días realizada en Hotel Xcaret Arte, diseñada para conectar movimiento, bienestar y comunidad.',
             'Desarrollamos cobertura fotográfica y audiovisual completa, incluyendo tomas aéreas con dron, para capturar la diversidad de actividades: cycling, entrenamiento funcional, dinámicas acuáticas, gastronomía y talleres. El enfoque fue transmitir equilibrio entre energía y contemplación, mostrando la experiencia desde dentro.',
@@ -48,6 +49,7 @@ const PROJECTS_DATA = {
         id: 'att',
         brand: 'TOLKA',
         title: 'AT&T',
+        gridSpan: 2,
         description: [
             'Para TOLKA, agencia especializada en experiencias BTL, realizamos la cobertura audiovisual integral del evento de AT&T en la Riviera Maya, un encuentro que reunió a los 700 mejores vendedores de México.',
             'Durante tres días documentamos tanto el proceso de montaje como la ejecución completa del evento, capturando desde la transformación del espacio hasta la experiencia en vivo. Registramos logística, producción, reconocimiento, interacción y momentos clave que definieron la magnitud del encuentro.',
@@ -105,7 +107,7 @@ const PROJECTS_DATA = {
             'El resultado fue una narrativa visual que refleja los valores de la marca y honra a sus protagonistas con la precisión y la energía que un evento de esta magnitud merece.'
         ],
         highlight: 'Cada galardón tiene una historia. Nosotros la contamos.',
-        heroVideo: 'videos/xcaret_xtar.mp4',
+        heroVimeoId: '1170429174',
         mediaSlug: 'xcaret_xtar',
         brandLogo: 'imagenes/Logo_Xcaret_Xtar.png'
     },
@@ -114,13 +116,14 @@ const PROJECTS_DATA = {
         id: 'xcaret-lealtad',
         brand: 'XCARET',
         title: 'XCARET LEALTAD',
+        gridSpan: 2,
         description: [
             'Para Grupo Xcaret desarrollamos la cobertura audiovisual de su programa de lealtad, una estrategia diseñada para fortalecer el vínculo entre la marca y sus visitantes más comprometidos.',
             'Documentamos las activaciones, experiencias exclusivas y momentos de reconocimiento que forman parte del programa, capturando la autenticidad de cada interacción. El objetivo fue mostrar cómo la fidelidad se convierte en experiencia tangible dentro de los destinos de Xcaret.',
             'Con una narrativa visual limpia y una paleta cercana a la identidad de la marca, entregamos contenido listo para comunicar valor, pertenencia y continuidad en cada plataforma.'
         ],
         highlight: null,
-        heroVideo: 'videos/xcaret_lealtad.mp4',
+        heroVimeoId: '1170429044',
         mediaSlug: 'xcaret_lealtad',
         brandLogo: 'imagenes/Logo_Xcaret.png'
     },
@@ -129,28 +132,29 @@ const PROJECTS_DATA = {
         id: 'xaak',
         brand: 'XAAK',
         title: 'REAPERTURA',
+        gridSpan: 2,
         description: [
             'Xaak Hotels es una marca que nació para redefinir la hospitalidad de lujo en el Caribe mexicano. Fuimos parte de su reapertura: un momento clave que marcó el regreso de una experiencia diseñada para quienes buscan algo más que un resort.',
             'Desarrollamos la cobertura audiovisual del evento de reapertura, documentando la puesta en escena, los espacios, las interacciones y la energía de un relanzamiento que mezcló elegancia, identidad y destino.',
             'Más que registrar un evento, construimos la primera narrativa visual del Xaak en su nueva etapa: una historia de apertura, movimiento y hospitalidad que se proyecta hacia el futuro.'
         ],
         highlight: 'El inicio de una nueva historia, contado en imágenes.',
-        heroVideo: 'videos/xaak_reapertura.mp4',
+        heroVimeoId: '1170836491',
         mediaSlug: 'xaak',
         brandLogo: 'imagenes/Logo__Xaak.png'
     },
 
     'power-mas-flow': {
         id: 'power-mas-flow',
-        brand: 'POWER+FLOW',
-        title: 'POWER MAS FLOW',
+        brand: 'POWER&FLOW',
+        title: 'POWER AND FLOW',
         description: [
-            'Power+Flow es más que un estudio de fitness: es una comunidad construida sobre intensidad, movimiento y conexión real. Realizamos la cobertura audiovisual de una de sus temporadas de clases, capturando la energía que define a la marca en cada sesión.',
+            'Power&Flow es más que un estudio de fitness: es una comunidad construida sobre intensidad, movimiento y conexión real. Realizamos la cobertura audiovisual de una de sus temporadas de clases, capturando la energía que define a la marca en cada sesión.',
             'Documentamos coaches, asistentes y dinámicas grupales desde adentro, con un enfoque que prioriza la autenticidad por encima del formato. El resultado es contenido que transmite lo que se siente estar ahí: ritmo, sudor, comunidad.',
             'La entrega fue diseñada para redes sociales, con piezas de corta duración que mantienen la intensidad del estudio en cada segundo de reproducción.'
         ],
         highlight: null,
-        heroVideo: 'videos/powermasflow.mp4',
+        heroVimeoId: '1170428872',
         mediaSlug: 'power_mas_flow',
         brandLogo: 'imagenes/Logo__Power.png'
     }

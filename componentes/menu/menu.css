@@ -90,7 +90,8 @@
 }
 
 .side-menu-item {
-    overflow: hidden;
+    /* removed overflow: hidden to prevent cutting descenders on hover */
+    overflow: visible;
 }
 
 .side-menu-item a {

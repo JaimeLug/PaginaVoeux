@@ -1,8 +1,59 @@
 {
-  "power_mas_flow": {
+  "att": {
     "images": [],
     "videos": [
-      "powermasflow.mp4"
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
+    ]
+  },
+  "byd_club": {
+    "images": [],
+    "videos": [
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
+    ]
+  },
+  "circulo_dorado": {
+    "images": [],
+    "videos": [
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
+    ]
+  },
+  "multimedios_tolka": {
+    "images": [],
+    "videos": [
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
+    ]
+  },
+  "power_mas_flow": {
+    "images": [
+      "poster.png"
+    ],
+    "videos": [
+      {
+        "type": "vimeo",
+        "orientation": "vertical",
+        "vimeoRaw": "https://vimeo.com/1170845935"
+      },
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
     ]
   },
   "retreat_ool_wellness": {
@@ -18,11 +69,31 @@
       "VoeuxMedia_Ool-42.jpg"
     ],
     "videos": [
-      "Ool Enero_General.mp4",
-      "Ool Enero_Take a moment_1.mp4",
-      "Ool Reels_Experiencia.mp4",
-      "Ool Reels_Funcional.mp4",
-      "Ool Reels_Indoor.mp4"
+      {
+        "type": "vimeo",
+        "orientation": "vertical",
+        "vimeoRaw": "https://vimeo.com/1170845935"
+      },
+      {
+        "type": "vimeo",
+        "orientation": "vertical",
+        "vimeoRaw": "https://vimeo.com/1170845921"
+      },
+      {
+        "type": "vimeo",
+        "orientation": "vertical",
+        "vimeoRaw": "https://vimeo.com/1170845902"
+      },
+      {
+        "type": "vimeo",
+        "orientation": "vertical",
+        "vimeoRaw": "https://vimeo.com/1170845883"
+      },
+      {
+        "type": "vimeo",
+        "orientation": "vertical",
+        "vimeoRaw": "https://vimeo.com/1170845858"
+      }
     ]
   },
   "ruta_redbull": {
@@ -31,31 +102,58 @@
       "VœuxMedia_RedBullOct-89.jpg",
       "VœuxMedia_RedBullSorryPapi-39.jpg"
     ],
-    "videos": []
+    "videos": [
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
+    ]
   },
   "the_collective": {
     "images": [],
     "videos": [
-      "POWERFLOW_RECAP 1ST DAY.mp4",
-      "RECAP GENERAL.mp4"
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
     ]
   },
   "xaak": {
-    "images": [],
+    "images": [
+      "poster.png"
+    ],
     "videos": [
-      "xaak_reapertura.mp4"
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
     ]
   },
   "xcaret_lealtad": {
-    "images": [],
+    "images": [
+      "poster.png"
+    ],
     "videos": [
-      "xcaret_lealtad.mp4"
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
     ]
   },
   "xcaret_xtar": {
-    "images": [],
+    "images": [
+      "poster.png"
+    ],
     "videos": [
-      "xcaret_xtar.mp4"
+      {
+        "type": "vimeo",
+        "orientation": "horizontal",
+        "vimeoRaw": "PENDIENTE"
+      }
     ]
   }
 }

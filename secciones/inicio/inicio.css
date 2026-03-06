@@ -3,8 +3,8 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    display: block;
+    /* Forced block for absolute children to stack correctly */
 }
 
 .video-background {
@@ -35,39 +35,95 @@
     opacity: 1;
 }
 
-.video-overlay {
+.bg-vimeo {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.bg-vimeo.active {
+    opacity: 1;
+}
+
+.vimeo-poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.video-horizontal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw;
+    /* 16:9 aspect ratio */
+    min-height: 100vh;
+    min-width: 177.77vh;
+    /* 16:9 aspect ratio */
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.video-vertical {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 177.77vw;
+    /* 9:16 aspect ratio */
+    min-height: 100vh;
+    min-width: 56.25vh;
+    /* 9:16 aspect ratio */
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
     background-color: #000000;
     opacity: 0.4;
-    z-index: -1;
+    z-index: 5;
+    pointer-events: none;
 }
 
 .pattern-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.3);
     background-image: radial-gradient(rgba(255, 255, 255, 0.1) 0.7px, transparent 0.7px);
     background-size: 5px 5px;
-    z-index: 1;
+    z-index: 6;
     pointer-events: none;
 }
 
 .hero {
-    flex: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 100%;
-    position: relative;
     z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through if needed, though containers will re-enable */
 }
 
 .hero-content {
@@ -83,25 +139,29 @@
 
 .intro-container {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: opacity 0.8s ease-in-out;
     width: 100%;
+    pointer-events: auto;
 }
 
 .dynamic-brand-container {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: opacity 0.4s ease-in-out;
     width: 100%;
-}
-
-.dynamic-brand-container {
     opacity: 0;
     pointer-events: none;
 }

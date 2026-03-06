@@ -59,3 +59,84 @@ body {
     -o-transition: none !important;
     transition: none !important;
 }
+
+/* Evitar que el usuario seleccione texto o elementos */
+body {
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+}
+
+/* Evitar que las imágenes se puedan "arrastrar" al escritorio */
+img,
+video,
+iframe {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}
+
+/* =========================================
+   COOKIE BANNER GLOBAL
+   ========================================= */
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000000;
+    border-top: 1px solid #333;
+    z-index: 9999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    font-family: 'Area Normal', sans-serif;
+    font-size: 0.9rem;
+    color: #a5a5a5;
+    flex-wrap: wrap;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.cookie-banner.hide {
+    transform: translateY(100%);
+}
+
+.cookie-banner a {
+    color: var(--accent-color, #d3d800);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cookie-banner a:hover {
+    text-decoration: underline;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.cookie-buttons button {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 0;
+    /* Bordes afilados */
+    padding: 12px 24px;
+    font-weight: bold;
+    font-family: 'Area Normal Bold', 'Outfit', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cookie-buttons button:hover {
+    background-color: var(--accent-color, #d3d800);
+    color: #000000;
+}
