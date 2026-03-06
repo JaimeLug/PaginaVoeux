@@ -6,10 +6,13 @@
 /* ——— Contenedor principal ——— */
 .philosophy-container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 120px 40px 100px;
     font-family: 'Area Normal', 'Outfit', sans-serif;
     color: var(--text-secondary, #a5a5a5);
+    /* Prevent marquee from causing horizontal scroll on the page */
+    overflow-x: hidden;
 }
 
 /* =========================================
@@ -95,6 +98,11 @@
    ========================================= */
 .philosophy-clients {
     padding-bottom: 60px;
+    /* Break out of parent padding so carousel spans full viewport width */
+    margin-left: -40px;
+    margin-right: -40px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .clients-title {
@@ -112,6 +120,7 @@
     overflow: hidden;
     white-space: nowrap;
     width: 100%;
+    position: relative;
     /* Fade edges for a premium feel */
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
@@ -166,17 +175,29 @@
 }
 
 /* =========================================
-   RESPONSIVE
+   RESPONSIVE — TABLET
    ========================================= */
 @media (max-width: 900px) {
     .philosophy-container {
-        padding: 100px 28px 80px;
+        padding: 100px 28px 70px;
     }
 
-    /* Collapse 2-col grid to 1 col on tablet/mobile */
+    .philosophy-manifesto {
+        margin-bottom: 56px;
+    }
+
+    .philosophy-divider {
+        margin-bottom: 64px;
+    }
+
+    .philosophy-what {
+        margin-bottom: 80px;
+    }
+
+    /* Collapse 2-col grid to 1 col on tablet */
     .what-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 20px;
     }
 
     .section-label {
@@ -184,21 +205,92 @@
     }
 }
 
+/* =========================================
+   RESPONSIVE — MÓVIL (≤ 600px)
+   ========================================= */
 @media (max-width: 600px) {
     .philosophy-container {
-        padding: 80px 20px 60px;
+        padding: 80px 24px 60px;
+    }
+
+    /* — Bloque 1: Manifiesto — */
+    .philosophy-manifesto {
+        margin-bottom: 48px;
     }
 
     .manifesto-headline {
-        font-size: clamp(1.8rem, 7vw, 2.4rem);
+        font-size: clamp(2rem, 8vw, 2.5rem);
+        letter-spacing: -0.5px;
+        margin-bottom: 24px;
+        line-height: 1.15;
+    }
+
+    .manifesto-body {
+        gap: 16px;
+    }
+
+    .manifesto-body p {
+        font-size: 1.05rem;
+        line-height: 1.5;
+    }
+
+    /* — Divisor — */
+    .philosophy-divider {
+        margin-bottom: 48px;
+    }
+
+    /* — Bloque 2: Qué es Voeux — */
+    .philosophy-what {
+        margin-bottom: 60px;
+    }
+
+    .what-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .section-label {
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+    }
+
+    .what-content {
+        gap: 16px;
+    }
+
+    .what-content p {
+        font-size: 1.05rem;
+        line-height: 1.5;
+    }
+
+    /* — Bloque 3: Aliados — */
+    .philosophy-clients {
+        /* Adjust negative margins to match the 24px mobile padding */
+        margin-left: -24px;
+        margin-right: -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .clients-title {
+        font-size: 0.85rem;
+        letter-spacing: 4px;
+        margin-bottom: 32px;
+    }
+
+    /* Ajustar máscara del carrusel para móviles */
+    .marquee-wrapper {
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     }
 
     .logo-item {
-        padding: 0 50px;
+        /* Reducir espacio entre logos en móviles */
+        padding: 0 20px;
     }
 
     .client-logo {
-        height: 52px;
-        max-width: 170px;
+        height: 55px;
+        max-width: 160px;
     }
 }

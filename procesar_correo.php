@@ -2,15 +2,31 @@
 /**
  * procesar_correo.php
  * Backend para procesar el formulario de contacto de Voeux Media.
- * Recibe datos vía POST, sanitiza, construye el correo y lo envía.
- * Responde siempre con JSON estricto: { "status": "...", "message": "..." }
+ * Recibe datos vía POST, sanitiza, construye el correo y lo envía vía SMTP (Titan).
  */
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Importar PHPMailer (Asegúrate de haber subido la carpeta PHPMailer a public_html)
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+// Importar credenciales seguras
+if (file_exists('env.php')) {
+    $env = require 'env.php';
+}
+else {
+    http_response_code(500);
+    echo json_encode(['status' => 'error', 'message' => 'Error interno: Falta archivo de configuración.']);
+    exit;
+}
 
 // ── Cabeceras de seguridad y CORS ─────────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 
-// Solo permitir peticiones POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['status' => 'error', 'message' => 'Método no permitido.']);
@@ -18,10 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ── Helpers de sanitización ───────────────────────────────────────────────
-
-/**
- * Limpia una cadena de texto plano (sin HTML).
- */
 function limpiar_texto(string $valor): string
 {
     $valor = trim($valor);
@@ -30,11 +42,7 @@ function limpiar_texto(string $valor): string
     return $valor;
 }
 
-/**
- * Valida y limpia un correo electrónico.
- * Devuelve false si no es válido.
- */
-function limpiar_correo(string $valor): string|false
+function limpiar_correo(string $valor)
 {
     $valor = trim($valor);
     $valor = filter_var($valor, FILTER_SANITIZE_EMAIL);
@@ -51,33 +59,13 @@ $asunto = limpiar_texto($_POST['asunto'] ?? '');
 $mensaje = limpiar_texto($_POST['mensaje'] ?? '');
 
 // ── Validaciones básicas ──────────────────────────────────────────────────
-if (empty($nombre)) {
+if (empty($nombre) || $correo === false || empty($mensaje)) {
     http_response_code(400);
-    echo json_encode(['status' => 'error', 'message' => 'El nombre es requerido.']);
+    echo json_encode(['status' => 'error', 'message' => 'Por favor, completa todos los campos correctamente.']);
     exit;
 }
 
-if ($correo === false) {
-    http_response_code(400);
-    echo json_encode(['status' => 'error', 'message' => 'El correo electrónico no es válido.']);
-    exit;
-}
-
-if (empty($mensaje)) {
-    http_response_code(400);
-    echo json_encode(['status' => 'error', 'message' => 'El mensaje es requerido.']);
-    exit;
-}
-
-// ── Configuración del correo ──────────────────────────────────────────────
-$destinatario = 'contacto@voeuxmedia.com';
-$remitente = 'noreply@voeuxmedia.com';
-
-$asunto_email = !empty($asunto)
-    ? "[Contacto Voeux] " . $asunto . " — " . $nombre
-    : "[Contacto Voeux] Nuevo mensaje de " . $nombre;
-
-// ── Cuerpo del correo (texto plano) ──────────────────────────────────────
+// ── Cuerpo del correo (Tu diseño original) ───────────────────────────────
 $cuerpo = "Nuevo mensaje desde el formulario de contacto de VoeuxMedia.com\n";
 $cuerpo .= str_repeat("─", 60) . "\n\n";
 $cuerpo .= "NOMBRE:  " . $nombre . "\n";
@@ -89,28 +77,54 @@ $cuerpo .= "\nMENSAJE:\n" . $mensaje . "\n\n";
 $cuerpo .= str_repeat("─", 60) . "\n";
 $cuerpo .= "Este correo fue generado automáticamente desde voeuxmedia.com\n";
 
-// ── Cabeceras del correo ──────────────────────────────────────────────────
-$cabeceras = "MIME-Version: 1.0\r\n";
-$cabeceras .= "Content-Type: text/plain; charset=UTF-8\r\n";
-$cabeceras .= "Content-Transfer-Encoding: 8bit\r\n";
-$cabeceras .= "From: Voeux Media <" . $remitente . ">\r\n";
-$cabeceras .= "Reply-To: " . $nombre . " <" . $correo . ">\r\n";
-$cabeceras .= "X-Mailer: PHP/" . phpversion();
+$asunto_email = !empty($asunto)
+    ? "[Contacto Voeux] " . $asunto . " — " . $nombre
+    : "[Contacto Voeux] Nuevo mensaje de " . $nombre;
 
-// ── Envío del correo ──────────────────────────────────────────────────────
-$enviado = mail($destinatario, $asunto_email, $cuerpo, $cabeceras);
+// ── Instanciar y configurar PHPMailer (El Motor SMTP) ─────────────────────
+$mail = new PHPMailer(true);
 
-if ($enviado) {
+try {
+    // Configuración del servidor (Titan)
+    $mail->isSMTP();
+    $mail->Host = 'smtp.titan.email';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'contacto@voeuxmedia.com';
+    $mail->Password = $env['SMTP_PASS']; // <-- Contraseña segura importada de env.php
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port = 465;
+    $mail->CharSet = 'UTF-8';
+
+    // Remitente y Destinatario
+    // IMPORTANTE: El 'From' debe ser el mismo correo autenticado para evitar Spam
+    $mail->setFrom('contacto@voeuxmedia.com', 'Sitio Web Voeux Media');
+    $mail->addAddress('contacto@voeuxmedia.com', 'Voeux Media Contacto');
+
+    // El 'Reply-To' permite que el cliente le responda directo al visitante
+    $mail->addReplyTo($correo, $nombre);
+
+    // Contenido
+    $mail->isHTML(true); // Lo mandamos como HTML para que los saltos de línea se vean bien
+    $mail->Subject = $asunto_email;
+    $mail->Body = nl2br($cuerpo); // Convierte los \n a <br>
+    $mail->AltBody = $cuerpo; // Versión en texto plano para clientes de correo antiguos
+
+    // Enviar
+    $mail->send();
+
     http_response_code(200);
     echo json_encode([
         'status' => 'success',
         'message' => '¡Mensaje enviado! Nos pondremos en contacto contigo pronto.'
     ]);
+
 }
-else {
+catch (Exception $e) {
     http_response_code(500);
+    // Registramos el error en el log del servidor para depurar, pero no lo mostramos al usuario por seguridad
+    error_log("Error de PHPMailer al enviar correo: " . $mail->ErrorInfo);
     echo json_encode([
         'status' => 'error',
-        'message' => 'Hubo un problema al enviar el mensaje. Por favor intenta de nuevo o escríbenos directamente a contacto@voeuxmedia.com.'
+        'message' => 'Hubo un problema técnico al enviar el mensaje. Por favor, intenta de nuevo más tarde.'
     ]);
 }
