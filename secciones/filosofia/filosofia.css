@@ -1,0 +1,204 @@
+/* =========================================
+   FILOSOFÍA — Estilos completos
+   Fuente: 'Area Normal' / variables globales
+   ========================================= */
+
+/* ——— Contenedor principal ——— */
+.philosophy-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 40px 100px;
+    font-family: 'Area Normal', 'Outfit', sans-serif;
+    color: var(--text-secondary, #a5a5a5);
+}
+
+/* =========================================
+   BLOQUE 1: EL MANIFIESTO
+   ========================================= */
+.philosophy-manifesto {
+    margin-bottom: 80px;
+}
+
+.manifesto-headline {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-primary, #ffffff);
+    letter-spacing: -0.5px;
+    max-width: 900px;
+    margin-bottom: 60px;
+}
+
+.manifesto-body {
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.manifesto-body p {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    line-height: 1.8;
+    color: var(--text-secondary, #a5a5a5);
+}
+
+/* ——— Divisor sutil ——— */
+.philosophy-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #333, transparent);
+    margin: 0 0 100px;
+}
+
+/* =========================================
+   BLOQUE 2: QUÉ ES VOEUX (GRID 2 COLS)
+   ========================================= */
+.philosophy-what {
+    margin-bottom: 120px;
+}
+
+.what-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+/* Etiqueta de sección */
+.section-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent-color, #d3d800);
+    padding-top: 6px;
+    /* Align with first line of right column text */
+    white-space: nowrap;
+}
+
+/* Columna derecha — párrafos */
+.what-content {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.what-content p {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    line-height: 1.8;
+    color: var(--text-secondary, #a5a5a5);
+}
+
+/* =========================================
+   BLOQUE 3: ALIADOS — MARQUEE CAROUSEL
+   ========================================= */
+.philosophy-clients {
+    padding-bottom: 60px;
+}
+
+.clients-title {
+    text-align: center;
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+    font-weight: 700;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--text-secondary, #a5a5a5);
+    margin-bottom: 50px;
+}
+
+/* —— Marquee wrapper: clips the overflowing track —— */
+.marquee-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    /* Fade edges for a premium feel */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+/* —— The animated track —— */
+.marquee-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    /* The animation moves exactly -50% which equals one full set, creating a perfect loop */
+    animation: marquee-scroll 25s linear infinite;
+    will-change: transform;
+}
+
+/* Hover-pause removed — marquee runs continuously */
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* —— Individual logo item —— */
+.logo-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Consistent padding on both sides = consistent spacing between every logo */
+    padding: 0 80px;
+    flex-shrink: 0;
+}
+
+/* —— Logo image: fixed height, auto width, capped so wide text logos don't dominate —— */
+.client-logo {
+    height: 70px;
+    width: auto;
+    max-width: 220px;
+    /* keeps wide text logos (Power+Flow) from being too dominant */
+    object-fit: contain;
+    filter: grayscale(100%) brightness(1.4) opacity(0.5);
+    transition: filter 0.4s ease;
+    display: block;
+}
+
+.logo-item:hover .client-logo {
+    filter: grayscale(0%) brightness(1) opacity(1);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 900px) {
+    .philosophy-container {
+        padding: 100px 28px 80px;
+    }
+
+    /* Collapse 2-col grid to 1 col on tablet/mobile */
+    .what-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .section-label {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .philosophy-container {
+        padding: 80px 20px 60px;
+    }
+
+    .manifesto-headline {
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+    }
+
+    .logo-item {
+        padding: 0 50px;
+    }
+
+    .client-logo {
+        height: 52px;
+        max-width: 170px;
+    }
+}

@@ -1,0 +1,419 @@
+/* =============================================
+   CONTACTO — Estilos de la sección
+   ============================================= */
+
+/* ── Contenedor principal ────────────────────── */
+.contacto-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 5% 80px;
+    /* top: espacio para navbar flotante */
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Fondo sutil con gradiente radial para dar profundidad */
+.contacto-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 70% 60% at 15% 50%, rgba(211, 216, 0, 0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 85% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.contacto-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+/* ── Columna Izquierda: Info ─────────────────── */
+.contacto-info {
+    position: relative;
+    padding-right: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+}
+
+/* Línea decorativa vertical derecha */
+.contacto-deco-line {
+    display: none;
+    /* visible solo en desktop */
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(211, 216, 0, 0.3) 20%,
+            rgba(165, 165, 165, 0.15) 70%,
+            transparent 100%);
+}
+
+/* ── Titular principal ───────────────────────── */
+.contacto-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contacto-title {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    /* Sutil degradado en el texto */
+    background: linear-gradient(135deg, #ffffff 0%, #d0d0d0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.contacto-subtitle {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 360px;
+}
+
+/* ── Bloques de datos (tel, correo, ubicación) ── */
+.contacto-details {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.contacto-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contacto-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: rgba(165, 165, 165, 0.5);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.contacto-link,
+.contacto-text {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    text-decoration: none;
+    line-height: 1.8;
+    transition: color 0.3s ease, letter-spacing 0.3s ease;
+    display: block;
+    width: fit-content;
+    position: relative;
+}
+
+/* Línea animada de hover bajo los links */
+.contacto-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.contacto-link:hover {
+    color: var(--accent-color);
+}
+
+.contacto-link:hover::after {
+    width: 100%;
+}
+
+/* ── Columna Derecha: Formulario ─────────────── */
+.contacto-form-wrapper {
+    padding-top: 20px;
+}
+
+.contacto-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* ── Grupos de campos ────────────────────────── */
+.form-group {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+/* ── Inputs y Textarea ───────────────────────── */
+.form-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(165, 165, 165, 0.25);
+    outline: none;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    padding: 12px 0;
+    transition:
+        border-color 0.35s ease,
+        color 0.3s ease;
+    caret-color: var(--accent-color);
+}
+
+/* Placeholder sutíl */
+.form-input::placeholder {
+    color: rgba(165, 165, 165, 0.4);
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: opacity 0.3s ease;
+}
+
+.form-input:focus::placeholder {
+    opacity: 0.2;
+}
+
+/* Focus: borde inferior verde Voeux */
+.form-input:focus {
+    border-bottom-color: var(--accent-color);
+}
+
+/* Pseudo-elemento de línea animada en focus */
+.form-group::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-color);
+    transition: width 0.4s ease;
+    pointer-events: none;
+}
+
+.form-group:focus-within::after {
+    width: 100%;
+}
+
+/* ── Textarea ────────────────────────────────── */
+.form-textarea {
+    resize: none;
+    min-height: 120px;
+    line-height: 1.7;
+}
+
+/* ── Botón de Envío ──────────────────────────── */
+.form-submit-wrapper {
+    margin-top: 8px;
+}
+
+.form-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 16px 36px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+        background-color 0.35s ease,
+        color 0.35s ease,
+        transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-submit::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--accent-color);
+    transform: translateX(-110%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+
+.form-submit:hover::before {
+    transform: translateX(0);
+}
+
+.btn-text,
+.btn-arrow {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-arrow {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.form-submit:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+.form-submit:active {
+    transform: scale(0.97);
+}
+
+/* ── Estado de carga del botón ───────────────── */
+.form-submit--loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.form-submit--loading::before {
+    transform: translateX(0) !important;
+    /* mantener fondo mientras carga */
+}
+
+/* ── Mensajes de feedback (éxito / error) ────── */
+.form-feedback {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    font-family: var(--font-primary);
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+    animation: feedbackFadeIn 0.45s ease forwards;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.form-feedback--success {
+    border-left: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    background-color: rgba(211, 216, 0, 0.04);
+}
+
+.form-feedback--error {
+    border-left: 2px solid #e05252;
+    color: #e05252;
+    background-color: rgba(224, 82, 82, 0.05);
+}
+
+.form-feedback__icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.form-feedback__msg {
+    flex: 1;
+}
+
+/* Estado de salida para auto-dismiss */
+.form-feedback--hiding {
+    opacity: 0;
+    transform: translateY(-6px);
+}
+
+@keyframes feedbackFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Animaciones de entrada ──────────────────── */
+.contacto-heading,
+.contacto-details,
+.contacto-form-wrapper {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: contactoFadeUp 0.8s ease forwards;
+}
+
+.contacto-heading {
+    animation-delay: 0.1s;
+}
+
+.contacto-details {
+    animation-delay: 0.25s;
+}
+
+.contacto-form-wrapper {
+    animation-delay: 0.15s;
+}
+
+@keyframes contactoFadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── RESPONSIVE: Tablet / Mobile ─────────────── */
+@media (max-width: 900px) {
+    .contacto-container {
+        gap: 50px;
+    }
+
+    .contacto-info {
+        padding-right: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contacto-section {
+        padding: 120px 6% 80px;
+    }
+
+    .contacto-container {
+        grid-template-columns: 1fr;
+        /* apilado verticalmente */
+        gap: 60px;
+    }
+
+    .contacto-info {
+        padding-right: 0;
+        gap: 40px;
+    }
+
+    .contacto-title {
+        font-size: clamp(2.8rem, 14vw, 4.5rem);
+        letter-spacing: -1px;
+    }
+
+    .contacto-subtitle {
+        max-width: 100%;
+    }
+
+    .contacto-deco-line {
+        display: none;
+    }
+}

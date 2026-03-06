@@ -1,4 +1,105 @@
-<div style="flex:1; display:flex; justify-content:center; align-items:center; flex-direction:column;">
-    <h1 style="font-size:3rem; margin-bottom:2rem; text-transform:uppercase;">Contacto</h1>
-    <p style="color:var(--text-secondary);">El contenido de contacto se cargará aquí...</p>
-</div>
+<!-- =============================================
+     SECCIÓN: CONTACTO
+     ============================================= -->
+<section class="contacto-section">
+    <div class="contacto-container">
+
+        <!-- ========================
+             COLUMNA IZQUIERDA: INFO
+             ======================== -->
+        <div class="contacto-info">
+            <div class="contacto-heading">
+                <h1 class="contacto-title">HABLEMOS</h1>
+                <p class="contacto-subtitle">Cuéntanos sobre tu próximo proyecto.<br>Estamos listos para crear algo increíble.</p>
+            </div>
+
+            <div class="contacto-details">
+
+                <div class="contacto-block">
+                    <span class="contacto-label">TELÉFONOS</span>
+                    <a href="tel:+529999604707" class="contacto-link">999 960 4707</a>
+                    <a href="tel:+529848771970" class="contacto-link">984 877 1970</a>
+                </div>
+
+                <div class="contacto-block">
+                    <span class="contacto-label">CORREO</span>
+                    <a href="mailto:contacto@voeuxmedia.com" class="contacto-link">contacto@voeuxmedia.com</a>
+                </div>
+
+                <div class="contacto-block">
+                    <span class="contacto-label">UBICACIÓN</span>
+                    <span class="contacto-text">Playa Del Carmen, Quintana Roo</span>
+                </div>
+
+            </div>
+
+            <!-- Línea decorativa vertical -->
+            <div class="contacto-deco-line"></div>
+        </div>
+
+        <!-- ========================
+             COLUMNA DERECHA: FORM
+             ======================== -->
+        <div class="contacto-form-wrapper">
+            <form class="contacto-form" id="contacto-form" novalidate>
+
+                <div class="form-group">
+                    <input
+                        type="text"
+                        id="form-nombre"
+                        name="nombre"
+                        class="form-input"
+                        placeholder="Nombre *"
+                        required
+                        autocomplete="name"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <input
+                        type="email"
+                        id="form-correo"
+                        name="correo"
+                        class="form-input"
+                        placeholder="Correo electrónico *"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <input
+                        type="text"
+                        id="form-asunto"
+                        name="asunto"
+                        class="form-input"
+                        placeholder="Asunto / Empresa"
+                        autocomplete="organization"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <textarea
+                        id="form-mensaje"
+                        name="mensaje"
+                        class="form-input form-textarea"
+                        placeholder="Mensaje *"
+                        required
+                        rows="5"
+                    ></textarea>
+                </div>
+
+                <div class="form-submit-wrapper">
+                    <button type="submit" class="form-submit" id="btn-submit-contacto">
+                        <span class="btn-text">ENVIAR MENSAJE</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+
+
+
+            </form>
+        </div>
+
+    </div>
+</section>

@@ -6,7 +6,7 @@
             vimeoId: "1170429174",
             heroPoster: "imagenes/xcaret_xtar/poster.png",
             brandLogo: "imagenes/Logo_Xcaret_Xtar.png",
-            link: "#proyectos?id=xcaret-xtar",
+            link: "#proyecto?id=xcaret-xtar",
             isVertical: false
         },
         {
@@ -15,7 +15,7 @@
             vimeoId: "1170429044",
             heroPoster: "imagenes/xcaret_lealtad/poster.png",
             brandLogo: "imagenes/Logo_Xcaret.png",
-            link: "#proyectos?id=xcaret-lealtad",
+            link: "#proyecto?id=xcaret-lealtad",
             isVertical: false
         },
         {
@@ -24,7 +24,7 @@
             vimeoId: "1170836491",
             heroPoster: "imagenes/xaak/poster.png",
             brandLogo: "imagenes/Logo__Xaak.png",
-            link: "#proyectos?id=xaak",
+            link: "#proyecto?id=xaak",
             isVertical: true
         },
         {
@@ -33,7 +33,7 @@
             vimeoId: "1170428872",
             heroPoster: "imagenes/power_mas_flow/poster.png",
             brandLogo: "imagenes/Logo__Power.png",
-            link: "#proyectos?id=power-mas-flow",
+            link: "#proyecto?id=power-mas-flow",
             isVertical: true
         }
     ];
@@ -227,12 +227,17 @@
 
                 if (playerCurrentIds[nextIndex] === nextProject.vimeoId) {
                     // Video ya cargado en este reproductor, solo darle play
+                    nextIframe.className = nextProject.isVertical ? 'video-vertical' : 'video-horizontal';
                     nextPlayer.play().catch((error) => {
                         console.warn("Vimeo play cancelado:", error);
                     });
                 } else {
                     // Cargar nuevo video y actualizar track ID
-                    nextPlayer.loadVideo(nextProject.vimeoId).catch((error) => {
+                    nextPlayer.loadVideo(nextProject.vimeoId).then(() => {
+                        // Re-apply class after SDK finishes loading the video,
+                        // as loadVideo() can reset iframe attributes internally.
+                        nextIframe.className = nextProject.isVertical ? 'video-vertical' : 'video-horizontal';
+                    }).catch((error) => {
                         console.warn("Vimeo loadVideo cancelado:", error);
                     });
                     playerCurrentIds[nextIndex] = nextProject.vimeoId;
