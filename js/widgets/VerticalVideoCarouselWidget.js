@@ -7,24 +7,34 @@ class FocalArcCarousel {
         this.cards = Array.from(container.querySelectorAll('.vr-video-card'));
 
         this.numCards = this.cards.length;
-        this.currentIndex = Math.floor(this.numCards / 2); // Inicia justo en medio
+        // Ahora usamos un offset de rotación flotante en lugar de un índice discreto
+        this.currentOffset = 0;
 
         this.startX = 0;
         this.currentX = 0;
         this.isDragging = false;
-        this.dragThreshold = 40;
+
+        // Variables para inercia y animación continua
+        this.targetOffset = 0;
+        this.autoPlaySpeed = 0.002; // Velocidad del giro continuo
+        this.animationFrame = null;
+        this.isHovering = false;
 
         this.init();
     }
 
     init() {
         this.updateCarousel();
+        this.startEngine(); // Iniciar motor de animación continua
 
         // Mouse Events
         this.scene.addEventListener('mousedown', (e) => this.dragStart(e.clientX));
         window.addEventListener('mousemove', (e) => this.dragMove(e.clientX));
         window.addEventListener('mouseup', () => this.dragEnd());
-        this.scene.addEventListener('mouseleave', () => { if (this.isDragging) this.dragEnd(); });
+
+        this.scene.addEventListener('mouseleave', () => {
+            if (this.isDragging) this.dragEnd();
+        });
 
         // Touch Events
         this.scene.addEventListener('touchstart', (e) => this.dragStart(e.touches[0].clientX), { passive: true });
@@ -39,17 +49,24 @@ class FocalArcCarousel {
         // Clic en tarjetas
         this.cards.forEach((card, index) => {
             card.addEventListener('click', () => {
-                if (this.isDragging) return;
+                if (this.isDragging || Math.abs(this.currentX) > 5) return;
 
-                if (index !== this.currentIndex) {
-                    // Si es una tarjeta lateral, tráela al frente
-                    this.currentIndex = index;
-                    this.updateCarousel();
+                // Determinar cuál es la tarjeta que está 'al centro' visualmente
+                // Normalizamos el offset actual al rango de [0, numCards)
+                let normalizedOffset = ((this.currentOffset % this.numCards) + this.numCards) % this.numCards;
+                let closestIndex = Math.round(normalizedOffset) % this.numCards;
+
+                if (index !== closestIndex) {
+                    // Si clicamos en una lateral, calculamos la distancia más corta para ponerla al frente
+                    let distance = index - normalizedOffset;
+                    if (distance > this.numCards / 2) distance -= this.numCards;
+                    if (distance < -this.numCards / 2) distance += this.numCards;
+
+                    this.targetOffset = this.currentOffset + distance;
                 } else {
-                    // Si es la tarjeta central (ya está al frente), abrir popup de Vimeo
+                    // Si clicamos en el centro exacto, abrimos Vimeo
                     const iframe = card.querySelector('iframe');
                     if (iframe && iframe.src) {
-                        // Extraer el ID de vimeo de la URL (después de video/ y antes de ?)
                         const match = iframe.src.match(/video\/(\d+)/);
                         if (match && match[1]) {
                             this.openVideoModal(match[1]);
@@ -58,6 +75,29 @@ class FocalArcCarousel {
                 }
             });
         });
+    }
+
+    startEngine() {
+        const tick = () => {
+            if (!this.isDragging) {
+                // Si no estamos arrastrando
+                if (Math.abs(this.targetOffset - this.currentOffset) > 0.001) {
+                    // Lerp hacia el target (si hicimos click para centrar una o arrastramos)
+                    this.currentOffset += (this.targetOffset - this.currentOffset) * 0.05;
+                } else {
+                    // Avance continuo autónomo de poco en poco
+                    this.currentOffset += this.autoPlaySpeed;
+                    this.targetOffset = this.currentOffset;
+                }
+            } else {
+                // Durante el drag, el target sigue al dedo al instante
+                this.currentOffset += (this.targetOffset - this.currentOffset) * 0.2;
+            }
+
+            this.updateCarousel();
+            this.animationFrame = requestAnimationFrame(tick);
+        };
+        tick();
     }
 
     openVideoModal(vimeoId) {
@@ -69,7 +109,7 @@ class FocalArcCarousel {
         overlay.innerHTML = `
             <div class="vr-video-modal-content">
                 <button class="vr-modal-close">&times;</button>
-                <iframe src="https://player.vimeo.com/video/${vimeoId}?autoplay=1" 
+                <iframe src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&autopause=0" 
                     frameborder="0" 
                     allow="autoplay; fullscreen; picture-in-picture" 
                     allowfullscreen>
@@ -103,90 +143,75 @@ class FocalArcCarousel {
 
     updateCarousel() {
         this.cards.forEach((card, index) => {
-            let distance = index - this.currentIndex;
+            // Evaluamos la distancia flotante desde el desplazamiento actual
+            let distance = index - this.currentOffset;
 
-            // Bucle infinito circular
-            const half = Math.floor(this.numCards / 2);
+            // Bucle envolvente continuo
+            const half = this.numCards / 2;
             if (distance > half) distance -= this.numCards;
             if (distance < -half) distance += this.numCards;
 
             const absDistance = Math.abs(distance);
             const direction = Math.sign(distance);
 
-            // Optimización y Corte abrupto: Las que están lejos se ocultan y mandan al fondo *SIN ANIMACIÓN*
-            // Para evitar ese efecto de que "vuelan de atrás" durante la transición del índice.
-            if (absDistance > 4) {
-                card.style.transition = 'none'; // Clave: Cortar la animación para saltar de inmediato al fondo
+            // Optimización y Corte abrupto (ahora más lejano porque el movimiento es analógico)
+            if (absDistance > 4.5) {
+                card.style.transition = 'none';
                 card.style.transform = `translateX(${direction * 800}px) translateZ(-800px) rotateY(${direction * -45}deg) scale(0)`;
                 card.style.opacity = '0';
                 card.style.zIndex = '1';
                 card.style.pointerEvents = 'none';
-
-                // Forzar un reflow para asegurar que el motor del navegador capta el salto sin transición
-                void card.offsetHeight;
-
                 return;
             } else {
-                // Restauramos la transición bella para las que sí están en pantalla (<=2 de distancia)
-                card.style.transition = 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), z-index 0.6s step-end';
+                // Al ser animación analógica (requestAnimationFrame), eliminamos las transiciones CSS pesadas 
+                // para que JS pinte fotograma por fotograma sin tirones del navegador
+                card.style.transition = 'none';
             }
 
             // ─── LA GEOMETRÍA PERFECTA CILÍNDRICA (VR) ───
-            let xOffset = 0;
-            let zOffset = 0;
-            let yRotation = 0;
-            // Usamos una escala global constate para no distorsionar las tarjetas entre sí.
-            // Esto asegura que los bordes interiores coincidan naturalmente por la perspectiva.
+            const radius = 750;
+            const angleStep = 28;
+
+            const theta = distance * angleStep;
+            const thetaRad = theta * (Math.PI / 180);
+
+            let xOffset = radius * Math.sin(thetaRad);
+            let zOffset = radius * (1 - Math.cos(thetaRad));
+            let yRotation = -theta;
+
+            // Efectoescalado y opacidad
             let scale = 0.85;
-            let opacity = 1;
-            let zIndex = 10;
+            let opacity = 1 - (absDistance * 0.15);
+            // El Z-Index debe recalcularse para el que esté más cerca de 0
+            let zIndex = 100 - Math.round(absDistance * 10);
 
-            if (absDistance === 0) {
-                xOffset = 0;
-                zOffset = 0;
-                yRotation = 0;
-                zIndex = 10;
+            // Foco interactivo: La tarjeta que esté más central recibe los eventos
+            if (absDistance < 0.5) {
                 card.style.pointerEvents = 'auto';
-                card.style.filter = 'brightness(1)';
             } else {
-                // Simulamos un muro cilíndrico envolvente
-                const radius = 750; // Apertura del cilindro (mayor = curva más plana)
-                const angleStep = 28; // Espaciado entre tarjetas (grados)
-
-                const theta = distance * angleStep;
-                const thetaRad = theta * (Math.PI / 180);
-
-                // Posición X natural en el perímetro de la curva
-                xOffset = radius * Math.sin(thetaRad);
-
-                // Posición Z (positiva = sale la imagen hacia ti) envolviendo tu visión
-                zOffset = radius * (1 - Math.cos(thetaRad));
-
-                // Rotamos la tarjeta para que sea tangente a la curva y mire hacia ti
-                yRotation = -theta;
-
-                opacity = 1 - (absDistance * 0.15);
-                zIndex = 10 - absDistance;
                 card.style.pointerEvents = 'none';
-                card.style.filter = `brightness(${1 - (absDistance * 0.2)})`;
             }
 
-            // Aplicar la magia matemática
+            card.style.filter = `brightness(${1 - (absDistance * 0.2)})`;
             card.style.transform = `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${yRotation}deg) scale(${scale})`;
             card.style.zIndex = zIndex;
-            card.style.opacity = opacity;
+            card.style.opacity = Math.max(0, opacity);
         });
     }
 
     dragStart(x) {
         this.isDragging = true;
         this.startX = x;
+        // Guardar la posición inicial real al empezar a tocar
+        this.startOffset = this.currentOffset;
         this.scene.classList.add('is-dragging');
     }
 
     dragMove(x) {
         if (!this.isDragging) return;
         this.currentX = x - this.startX;
+        // Mapear píxeles a grados/índices (200px = 1 rotación de tarjeta)
+        this.targetOffset = this.startOffset - (this.currentX / 200);
     }
 
     dragEnd() {
@@ -194,16 +219,8 @@ class FocalArcCarousel {
         this.isDragging = false;
         this.scene.classList.remove('is-dragging');
 
-        // Umbral de swipe (swipe threshold).
-        // Aumentado a 60px para evitar gestos accidentales, pero asegura que
-        // cada vez que arrastras el mouse o dedo y lo sueltas, SÓLO se mueva 1 tarjeta.
-        if (this.currentX < -60) {
-            this.currentIndex = (this.currentIndex + 1) % this.numCards;
-        } else if (this.currentX > 60) {
-            this.currentIndex = (this.currentIndex - 1 + this.numCards) % this.numCards;
-        }
-
-        this.updateCarousel();
+        // Al soltar, redondear (Snap) a la tarjeta más cercana
+        this.targetOffset = Math.round(this.targetOffset);
         this.currentX = 0;
     }
 }
@@ -233,8 +250,9 @@ window.VerticalVideoCarouselWidget = function (data) {
     const itemsHtml = extendedVideos.map(vimeoId => {
         return `
                 <div class="vr-video-card">
-                     <iframe src="https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&muted=1&loop=1" 
+                     <iframe src="https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&muted=1&loop=1&autopause=0" 
                             frameborder="0" 
+                            loading="lazy"
                             allow="autoplay; fullscreen; picture-in-picture">
                     </iframe>
                 </div>
