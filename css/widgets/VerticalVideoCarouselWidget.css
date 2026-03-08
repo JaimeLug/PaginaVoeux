@@ -3,7 +3,8 @@
 .vr-carousel-container {
     width: 100%;
     margin: 4rem 0 6rem;
-    overflow: hidden;
+    overflow: visible;
+    /* CRÍTICO: Permite que las tarjetas laterales se salgan de la caja sin cortarse */
     position: relative;
     /* La perspectiva desde el punto focal del usuario */
     perspective: 1000px;
