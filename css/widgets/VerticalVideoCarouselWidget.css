@@ -1,0 +1,181 @@
+/* css/widgets/VerticalVideoCarouselWidget.css */
+
+.vr-carousel-container {
+    width: 100%;
+    margin: 4rem 0 6rem;
+    overflow: hidden;
+    position: relative;
+    /* La perspectiva desde el punto focal del usuario */
+    perspective: 1000px;
+    font-family: 'Outfit', sans-serif;
+    padding: 3rem 0;
+}
+
+.vr-carousel-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3rem;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.vr-carousel-scene {
+    position: relative;
+    width: 100vw;
+    height: 600px;
+    /* Altura suficiente para contener las tarjetas 9:16 */
+    /* Preserva 3D para hijas */
+    transform-style: preserve-3d;
+
+    touch-action: pan-y;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.vr-carousel-scene:active,
+.vr-carousel-scene.is-dragging {
+    cursor: grabbing;
+}
+
+.vr-carousel-scene.is-dragging iframe {
+    /* Clave para Vimeo: Bloquea el toque interno durante arrastres */
+    pointer-events: none;
+}
+
+.vr-video-card {
+    position: absolute;
+
+    /* ─── EL SECRETO DEL CENTRADO PERFECTO ─── */
+    top: 50%;
+    left: 50%;
+    margin-top: -285px;
+    /* La mitad exacta de su altura (570px / 2) */
+    margin-left: -160px;
+    /* La mitad exacta de su anchura (320px / 2) */
+
+    width: 320px;
+    height: 570px;
+    border-radius: 12px;
+    background: #000;
+    overflow: hidden;
+
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.8s ease,
+        filter 0.8s ease,
+        z-index 0.8s step-end;
+
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6), 10px 0 30px rgba(0, 0, 0, 0.6);
+    transform-origin: center center;
+}
+
+/* Pseudo elemento para simular reflejo en el suelo 3D */
+.vr-video-card::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+    opacity: 0.1;
+    pointer-events: none;
+    transform: scaleY(-1);
+    border-radius: 12px;
+}
+
+.vr-video-card iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+    pointer-events: none;
+    /* Crucial para que el javascript de la tarjeta detecte el clic, no Vimeo */
+}
+
+@media (max-width: 768px) {
+    .vr-video-card {
+        width: 260px;
+        height: 462px;
+        margin-top: -231px;
+        margin-left: -130px;
+    }
+
+    .vr-carousel-scene {
+        height: 500px;
+    }
+}
+
+/* ─── ESTILOS DEL MODAL DE VIMEO ─── */
+.vr-video-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.vr-video-modal-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.vr-video-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    height: 80vh;
+    max-height: 800px;
+    background: #000;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.vr-video-modal-overlay.visible .vr-video-modal-content {
+    transform: scale(1);
+}
+
+.vr-video-modal-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 16px;
+}
+
+.vr-modal-close {
+    position: absolute;
+    top: -45px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+    z-index: 10000;
+}
+
+.vr-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}

@@ -69,102 +69,54 @@ window.addEventListener('section-loaded', async (e) => {
         heroImg.alt = `Portada del proyecto ${project.title}`;
     }
 
-    // ── Gallery loading ────────────────────────────────────────────────────────
-    const galleryEl = document.getElementById('project-gallery');
+    // ── Dynamic Content Blocks (Widgets) ───────────────────────────────────────
+    const dynamicContainer = document.getElementById('project-dynamic-content');
 
-    if (!project.mediaSlug) {
-        return;
-    }
+    if (dynamicContainer) {
+        dynamicContainer.innerHTML = '';
 
-    galleryEl.innerHTML = '<p class="gallery-loading">Cargando galería…</p>';
+        if (project.content_blocks && project.content_blocks.length > 0) {
+            try {
+                // Aseguramos que los widgets estén cargados antes de renderizarlos
+                const widgetsToLoad = [
+                    'js/widgets/HorizontalVideoWidget.js',
+                    'js/widgets/PhotoGridWidget.js',
+                    'js/widgets/VerticalVideoCarouselWidget.js'
+                ];
+                await Promise.all(widgetsToLoad.map(src => typeof loadJS === 'function' ? loadJS(src) : Promise.resolve()));
 
-    let combinedItems = [];
+                // Iterar y renderizar secuencialmente
+                project.content_blocks.forEach(block => {
+                    let widgetHtml = '';
 
-    try {
-        const res = await fetch('js/galleryData.json');
-        if (res.ok) {
-            const galleryManifest = await res.json();
-            const projectMedia = galleryManifest[project.mediaSlug];
+                    switch (block.type) {
+                        case 'horizontal-video':
+                            if (window.HorizontalVideoWidget) widgetHtml = window.HorizontalVideoWidget(block);
+                            break;
+                        case 'photo-grid':
+                            if (window.PhotoGridWidget) widgetHtml = window.PhotoGridWidget(block);
+                            break;
+                        case 'vertical-video-carousel':
+                            if (window.VerticalVideoCarouselWidget) widgetHtml = window.VerticalVideoCarouselWidget(block);
+                            break;
+                        default:
+                            console.warn(`[proyecto.js] Widget desconocido: ${block.type}`);
+                    }
 
-            if (projectMedia) {
-                // Render images from JSON
-                if (projectMedia.images && projectMedia.images.length > 0) {
-                    projectMedia.images.forEach(filename => {
-                        combinedItems.push({
-                            type: 'image',
-                            fullResSrc: `imagenes/${project.mediaSlug}/${filename}`,
-                            thumbnailSrc: `imagenes/${project.mediaSlug}/thumbs/${filename.replace(/\.[^.]+$/, '.jpg')}`,
-                            alt: filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')
-                        });
-                    });
-                }
-
-                // Render videos from JSON (Vimeo objects)
-                if (projectMedia.videos && projectMedia.videos.length > 0) {
-                    projectMedia.videos.forEach(videoData => {
-                        // Push immediately, objects already defined properly in JSON
-                        combinedItems.push(videoData);
-                    });
-                }
+                    if (widgetHtml) {
+                        const tempContainer = document.createElement('div');
+                        tempContainer.innerHTML = widgetHtml.trim();
+                        // Append the outermost node of the widget
+                        if (tempContainer.firstElementChild) {
+                            dynamicContainer.appendChild(tempContainer.firstElementChild);
+                        }
+                    }
+                });
+            } catch (err) {
+                console.error('[proyecto.js] Error al cargar o renderizar widgets:', err);
             }
         }
-    } catch (error) {
-        console.warn('[proyecto.js] Error loading gallery JSON:', error);
     }
-
-    // 3. Render Combined Items
-    if (combinedItems.length === 0) {
-        galleryEl.innerHTML = '';
-        return;
-    }
-
-    galleryEl.innerHTML = '';
-    initLightbox();
-
-    combinedItems.forEach(item => {
-        const wrapper = document.createElement('div');
-
-        if (item.type === 'vimeo') {
-            const vimeoId = item.vimeoRaw ? extractVimeoId(item.vimeoRaw) : item.id;
-
-            wrapper.className = 'media-item media-item--video';
-            wrapper.title = 'Ver video';
-
-            if (vimeoId && vimeoId !== 'PENDIENTE') {
-                const iframe = document.createElement('iframe');
-                iframe.src = `https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&muted=1&loop=1`;
-                iframe.frameBorder = "0";
-                iframe.allow = "autoplay; fullscreen; picture-in-picture";
-                iframe.style.width = "100%";
-                iframe.style.height = "100%";
-                iframe.style.pointerEvents = "none";
-                iframe.style.objectFit = "cover";
-
-                const orientation = item.orientation || 'horizontal';
-                wrapper.addEventListener('click', () => openLightbox(vimeoId, 'vimeo', orientation));
-                wrapper.appendChild(iframe);
-            } else {
-                wrapper.classList.add('loading-placeholder');
-                wrapper.title = '';
-                wrapper.innerHTML = '<div class="vimeo-gallery-wrapper" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;"><div class="loading-text">Video Pendiente</div></div>';
-            }
-        } else if (item.type === 'image') {
-            wrapper.className = 'media-item media-item--image';
-            wrapper.title = 'Ver en tamaño completo';
-
-            const img = document.createElement('img');
-            img.src = item.thumbnailSrc;
-            img.alt = item.alt || 'Gallery Image';
-            img.loading = 'lazy';
-            img.decoding = 'async';
-            img.onerror = () => { img.src = item.fullResSrc; img.onerror = null; };
-
-            wrapper.addEventListener('click', () => openLightbox(item.fullResSrc, 'image'));
-            wrapper.appendChild(img);
-        }
-
-        galleryEl.appendChild(wrapper);
-    });
 });
 
 // ── Lightbox ──────────────────────────────────────────────────────────────────

@@ -17,7 +17,27 @@ const PROJECTS_DATA = {
             'La cobertura se realizó en tiempo real, con entrega inmediata de fotografías y video listos para redes sociales, además del manejo activo de las plataformas durante el evento. Esto permitió generar interacción orgánica, mantener conversación constante y fortalecer el sentido de comunidad mientras el retiro seguía en curso.'
         ],
         highlight: 'Más que documentar un evento, amplificamos una experiencia.',
-        mediaSlug: 'retreat_ool_wellness'
+        mediaSlug: 'retreat_ool_wellness',
+        content_blocks: [
+            {
+                type: 'vertical-video-carousel',
+                videos: ['1170845935', '1170845921', '1170845902', '1170845883', '1170845858']
+            },
+            {
+                type: 'photo-grid',
+                images: [
+                    'imagenes/retreat_ool_wellness/Voeux-Ool-13.jpg',
+                    'imagenes/retreat_ool_wellness/Voeux-Ool-15.jpg',
+                    'imagenes/retreat_ool_wellness/Voeux-Ool-50.jpg',
+                    'imagenes/retreat_ool_wellness/Voeux-Ool-61.jpg',
+                    'imagenes/retreat_ool_wellness/VoeuxM-Ool-10.jpg',
+                    'imagenes/retreat_ool_wellness/VoeuxM-Ool-33.jpg',
+                    'imagenes/retreat_ool_wellness/VoeuxM-Ool-36.jpg',
+                    'imagenes/retreat_ool_wellness/VoeuxM-Ool-5.jpg',
+                    'imagenes/retreat_ool_wellness/VoeuxMedia_Ool-42.jpg'
+                ]
+            }
+        ]
     },
 
     'red-bull': {
@@ -30,7 +50,17 @@ const PROJECTS_DATA = {
             'A través de fotografía y video, mostramos cómo la marca vive en cada punto, adaptándose al entorno y manteniendo su fuerza visual en cualquier escenario.'
         ],
         highlight: null,
-        mediaSlug: 'ruta_redbull'
+        mediaSlug: 'ruta_redbull',
+        content_blocks: [
+            {
+                type: 'photo-grid',
+                images: [
+                    'imagenes/ruta_redbull/RedBull_CDMX_DIC2025_4-3.jpg',
+                    'imagenes/ruta_redbull/VœuxMedia_RedBullOct-89.jpg',
+                    'imagenes/ruta_redbull/VœuxMedia_RedBullSorryPapi-39.jpg'
+                ]
+            }
+        ]
     },
 
     'circulo-dorado': {
@@ -42,7 +72,19 @@ const PROJECTS_DATA = {
             'Con nuestro equipo en campo desarrollamos fotografía y video recap, documentando premiaciones, intervenciones en escenario, networking y la energía de una industria que celebra creatividad, estrategia e innovación.'
         ],
         highlight: null,
-        mediaSlug: 'circulo_dorado'
+        mediaSlug: 'circulo_dorado',
+        content_blocks: [
+            {
+                type: 'photo-grid',
+                images: [
+                    'imagenes/circulo_dorado/FestivalCirculoDeOro2026-50.jpg',
+                    'imagenes/circulo_dorado/FestivalCirculoDeOro2026_2-3.jpg',
+                    'imagenes/circulo_dorado/FestivalCirculoDeOro2026_3-19.jpg',
+                    'imagenes/circulo_dorado/FestivalCirculoDeOro2026_3-4.jpg',
+                    'imagenes/circulo_dorado/FestivalCirculoDeOro2026_3-78.jpg'
+                ]
+            }
+        ]
     },
 
     'att': {
@@ -56,7 +98,8 @@ const PROJECTS_DATA = {
             'Desarrollamos fotografía y video recap con un enfoque dinámico y preciso, condensando la energía, la escala y la relevancia corporativa del evento en una narrativa clara y estratégica.'
         ],
         highlight: null,
-        mediaSlug: 'att'
+        mediaSlug: 'att',
+        content_blocks: []
     },
 
     'multimedios': {
@@ -68,7 +111,15 @@ const PROJECTS_DATA = {
             'Desarrollamos fotografía y video recap documentando los mundos creados para el evento, desde la experiencia inmersiva de acceso hasta los shows, escenarios y activaciones que transformaron el espacio en una narrativa tridimensional.'
         ],
         highlight: null,
-        mediaSlug: 'multimedios_tolka'
+        mediaSlug: 'multimedios_tolka',
+        content_blocks: [
+            {
+                type: 'photo-grid',
+                images: [
+                    'imagenes/multimedios_tolka/Multimedios_-29.jpg'
+                ]
+            }
+        ]
     },
 
     'power-flow': {
@@ -81,7 +132,8 @@ const PROJECTS_DATA = {
             'La entrega de fotografía y video se realizó en tiempo real, generando contenido listo para redes sociales mientras el evento seguía en curso. Más que documentar, construimos una narrativa inmediata que amplificó el impacto del aniversario en el momento exacto en que estaba sucediendo.'
         ],
         highlight: null,
-        mediaSlug: 'the_collective'
+        mediaSlug: 'the_collective',
+        content_blocks: []
     },
 
     'byd-club': {
@@ -94,7 +146,20 @@ const PROJECTS_DATA = {
             'El enfoque fue mostrar cómo la innovación se vive en territorio: movimiento, conversación y decisión en tiempo real. Más que registrar actividades, construimos una narrativa que proyecta energía, avance y comunidad alrededor de la marca.'
         ],
         highlight: null,
-        mediaSlug: 'byd_club'
+        mediaSlug: 'byd_club',
+        content_blocks: [
+            {
+                type: 'photo-grid',
+                images: [
+                    'imagenes/byd_club/BYDTestDrive2025-PDC-2-11.jpg',
+                    'imagenes/byd_club/BYDTestDrive2025-PDC-2-27.jpg',
+                    'imagenes/byd_club/BYDTestDrive2025-PDC-2-30.jpg',
+                    'imagenes/byd_club/BYDTestDrive2025-PDC-3.jpg',
+                    'imagenes/byd_club/BYDTestDrive2025-PDC-8.jpg',
+                    'imagenes/byd_club/C8888T01.JPG'
+                ]
+            }
+        ]
     },
 
     'xcaret-xtar': {
@@ -109,7 +174,14 @@ const PROJECTS_DATA = {
         highlight: 'Cada galardón tiene una historia. Nosotros la contamos.',
         heroVimeoId: '1170429174',
         mediaSlug: 'xcaret_xtar',
-        brandLogo: 'imagenes/Logo_Xcaret_Xtar.png'
+        brandLogo: 'imagenes/Logo_Xcaret_Xtar.png',
+        content_blocks: [
+            { type: 'horizontal-video', vimeoId: '1170429174' },
+            {
+                type: 'photo-grid',
+                images: ['imagenes/xcaret_xtar/poster.png']
+            }
+        ]
     },
 
     'xcaret-lealtad': {
@@ -125,7 +197,14 @@ const PROJECTS_DATA = {
         highlight: null,
         heroVimeoId: '1170429044',
         mediaSlug: 'xcaret_lealtad',
-        brandLogo: 'imagenes/Logo_Xcaret.png'
+        brandLogo: 'imagenes/Logo_Xcaret.png',
+        content_blocks: [
+            { type: 'horizontal-video', vimeoId: '1170429044' },
+            {
+                type: 'photo-grid',
+                images: ['imagenes/xcaret_lealtad/poster.png']
+            }
+        ]
     },
 
     'xaak': {
@@ -141,7 +220,24 @@ const PROJECTS_DATA = {
         highlight: 'El inicio de una nueva historia, contado en imágenes.',
         heroVimeoId: '1170836491',
         mediaSlug: 'xaak',
-        brandLogo: 'imagenes/Logo__Xaak.png'
+        brandLogo: 'imagenes/Logo__Xaak.png',
+        content_blocks: [
+            { type: 'horizontal-video', vimeoId: '1170836491' },
+            {
+                type: 'photo-grid',
+                images: [
+                    'imagenes/xaak/poster.png',
+                    'imagenes/xaak/VœuxMedia_ReaperturaXaakHXA-18.jpg',
+                    'imagenes/xaak/VœuxMedia_ReaperturaXaakHXA-2.jpg',
+                    'imagenes/xaak/VœuxMedia_ReaperturaXaakHXA-32.jpg',
+                    'imagenes/xaak/VœuxMedia_ReaperturaXaakHXA-42.jpg',
+                    'imagenes/xaak/VœuxMedia_ReaperturaXaakHXA-53.jpg',
+                    'imagenes/xaak/VœuxMedia_ReaperturaXaakHXA-68.jpg',
+                    'imagenes/xaak/VœuxMedia_ReaperturaXaakHXA-79.jpg',
+                    'imagenes/xaak/VœuxMedia_ReaperturaXaakHXA-97.jpg'
+                ]
+            }
+        ]
     },
 
     'power-mas-flow': {
@@ -156,8 +252,18 @@ const PROJECTS_DATA = {
         highlight: null,
         heroVimeoId: '1170428872',
         mediaSlug: 'power_mas_flow',
-        brandLogo: 'imagenes/Logo__Power.png'
+        brandLogo: 'imagenes/Logo__Power.png',
+        content_blocks: [
+            { type: 'horizontal-video', vimeoId: '1170428872' },
+            {
+                type: 'vertical-video-carousel',
+                videos: ['1170845935']
+            },
+            {
+                type: 'photo-grid',
+                images: ['imagenes/power_mas_flow/poster.png']
+            }
+        ]
     }
 
 };
-
