@@ -1,3 +1,23 @@
+// =========================================
+// LENIS JS - GLOBAL SMOOTH SCROLLING
+// =========================================
+const lenis = new Lenis({
+    lerp: 0.15,             // Mayor valor = respuesta más inmediata y menos "pesada" (0.1 o 0.15 es ideal para evitar esa sensación de lentitud)
+    wheelMultiplier: 1.2,   // La rueda avanza un poquito más por cada giro, quitando sensación de pesadez
+    smoothWheel: true,      // Activa el scroll suave con rueda del ratón
+    normalizeWheel: true,   // Normaliza los "saltitos" de la rueda en PC/Windows
+    syncTouch: true,        // Sincroniza gestos táctiles (trackpad/móvil)
+});
+
+function rafLenis(time) {
+    lenis.raf(time);
+    requestAnimationFrame(rafLenis);
+}
+requestAnimationFrame(rafLenis);
+
+// =========================================
+// INICIALIZACIÓN DE LA APLICACIÓN (SPA)
+// =========================================
 document.addEventListener("DOMContentLoaded", async () => {
     // 1. Initial Load of Components (Header, Menu, Footer)
     await loadComponent('header-container', 'componentes/header/header.html', 'componentes/header/header.css');

@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "thumbs": "node scripts/generate-thumbs.js",
-    "gallery": "node scripts/generate-gallery.js",
-    "build": "npm run thumbs && npm run gallery",
+    "build": "npm run thumbs",
     "serve": "npx http-server -p 8080"
   },
   "devDependencies": {

@@ -78,26 +78,38 @@ class FocalArcCarousel {
     }
 
     startEngine() {
-        const tick = () => {
-            if (!this.isDragging) {
-                // Si no estamos arrastrando
-                if (Math.abs(this.targetOffset - this.currentOffset) > 0.001) {
-                    // Lerp hacia el target (si hicimos click para centrar una o arrastramos)
-                    this.currentOffset += (this.targetOffset - this.currentOffset) * 0.05;
-                } else {
-                    // Avance continuo autónomo de poco en poco
-                    this.currentOffset += this.autoPlaySpeed;
-                    this.targetOffset = this.currentOffset;
-                }
-            } else {
-                // Durante el drag, el target sigue al dedo al instante
-                this.currentOffset += (this.targetOffset - this.currentOffset) * 0.2;
-            }
+        let lastTime = 0;
+        const fpsInterval = 1000 / 30; // 30 FPS límite
 
-            this.updateCarousel();
+        const tick = (currentTime) => {
             this.animationFrame = requestAnimationFrame(tick);
+
+            if (!lastTime) lastTime = currentTime;
+            const elapsed = currentTime - lastTime;
+
+            if (elapsed > fpsInterval) {
+                // Ajustar lastTime para el siguiente frame sin perder milisegundos
+                lastTime = currentTime - (elapsed % fpsInterval);
+
+                if (!this.isDragging) {
+                    // Si no estamos arrastrando
+                    if (Math.abs(this.targetOffset - this.currentOffset) > 0.001) {
+                        // Lerp hacia el target (si hicimos click para centrar una o arrastramos)
+                        this.currentOffset += (this.targetOffset - this.currentOffset) * 0.05;
+                    } else {
+                        // Avance continuo autónomo de poco en poco
+                        this.currentOffset += this.autoPlaySpeed;
+                        this.targetOffset = this.currentOffset;
+                    }
+                } else {
+                    // Durante el drag, el target sigue al dedo al instante
+                    this.currentOffset += (this.targetOffset - this.currentOffset) * 0.2;
+                }
+
+                this.updateCarousel();
+            }
         };
-        tick();
+        this.animationFrame = requestAnimationFrame(tick);
     }
 
     openVideoModal(vimeoId) {
@@ -144,28 +156,36 @@ class FocalArcCarousel {
     updateCarousel() {
         this.cards.forEach((card, index) => {
             // Evaluamos la distancia flotante desde el desplazamiento actual
-            let distance = index - this.currentOffset;
+            let rawDistance = index - this.currentOffset;
 
-            // Bucle envolvente continuo
+            // Bucle envolvente continuo usando Módulo estricto
+            // Normaliza la distancia en un rango circular de [-numCards/2, numCards/2]
             const half = this.numCards / 2;
-            if (distance > half) distance -= this.numCards;
-            if (distance < -half) distance += this.numCards;
+            let distance = ((rawDistance + half) % this.numCards + this.numCards) % this.numCards - half;
 
             const absDistance = Math.abs(distance);
             const direction = Math.sign(distance);
 
-            // Optimización y Corte abrupto (ahora más lejano porque el movimiento es analógico)
-            if (absDistance > 4.5) {
+            // Optimización y Corte abrupto (evita que el elemento cruce la cámara Z=1000 y rompa el scroll)
+            if (absDistance > 3.1) {
+                card.style.visibility = 'hidden';
                 card.style.transition = 'none';
-                card.style.transform = `translateX(${direction * 800}px) translateZ(-800px) rotateY(${direction * -45}deg) scale(0)`;
-                card.style.opacity = '0';
-                card.style.zIndex = '1';
                 card.style.pointerEvents = 'none';
                 return;
             } else {
+                card.style.visibility = 'visible';
                 // Al ser animación analógica (requestAnimationFrame), eliminamos las transiciones CSS pesadas 
                 // para que JS pinte fotograma por fotograma sin tirones del navegador
                 card.style.transition = 'none';
+            }
+
+            // --- WAKE-UP LOGIC (Lazy Loading) ---
+            if (absDistance <= 2) {
+                const iframe = card.querySelector('iframe');
+                if (iframe && iframe.hasAttribute('data-src')) {
+                    iframe.setAttribute('src', iframe.getAttribute('data-src'));
+                    iframe.removeAttribute('data-src');
+                }
             }
 
             // ─── LA GEOMETRÍA PERFECTA CILÍNDRICA (VR) ───
@@ -181,7 +201,8 @@ class FocalArcCarousel {
 
             // Efectoescalado y opacidad
             let scale = 0.85;
-            let opacity = 1 - (absDistance * 0.15);
+            // Opacidad se desvanece más rápido para que sea invisible al llegar al corte de 3.1
+            let opacity = 1 - (absDistance * 0.35);
             // El Z-Index debe recalcularse para el que esté más cerca de 0
             let zIndex = 100 - Math.round(absDistance * 10);
 
@@ -250,7 +271,7 @@ window.VerticalVideoCarouselWidget = function (data) {
     const itemsHtml = extendedVideos.map(vimeoId => {
         return `
                 <div class="vr-video-card">
-                     <iframe src="https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&muted=1&loop=1&autopause=0" 
+                     <iframe data-src="https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&muted=1&loop=1&autopause=0" 
                             frameborder="0" 
                             loading="lazy"
                             allow="autoplay; fullscreen; picture-in-picture">
