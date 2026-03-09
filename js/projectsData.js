@@ -21,7 +21,7 @@ const PROJECTS_DATA = {
         content_blocks: [
             {
                 type: 'vertical-video-carousel',
-                videos: ['1170845935', '1170845921', '1170845902', '1170845883', '1170845858']
+                videos: ['1170845935', '1170845921', '1170845902', '1170845858']
             },
             {
                 type: 'photo-grid',
