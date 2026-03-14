@@ -21,6 +21,7 @@ class FocalArcCarousel {
         this.isHovering = false;
 
         this.init();
+        this.setupVisibilityObserver();
     }
 
     init() {
@@ -169,22 +170,29 @@ class FocalArcCarousel {
             // Optimización y Corte abrupto (evita que el elemento cruce la cámara Z=1000 y rompa el scroll)
             if (absDistance > 3.1) {
                 card.style.visibility = 'hidden';
-                card.style.transition = 'none';
+                if (card.style.transition !== 'none') {
+                    card.style.transition = 'none';
+                }
                 card.style.pointerEvents = 'none';
                 return;
             } else {
                 card.style.visibility = 'visible';
                 // Al ser animación analógica (requestAnimationFrame), eliminamos las transiciones CSS pesadas 
                 // para que JS pinte fotograma por fotograma sin tirones del navegador
-                card.style.transition = 'none';
+                if (card.style.transition !== 'none') {
+                    card.style.transition = 'none';
+                }
             }
 
             // --- WAKE-UP LOGIC (Lazy Loading) ---
-            if (absDistance <= 2) {
+            if (absDistance <= 3) {
                 const iframe = card.querySelector('iframe');
                 if (iframe && iframe.hasAttribute('data-src')) {
                     iframe.setAttribute('src', iframe.getAttribute('data-src'));
                     iframe.removeAttribute('data-src');
+
+                    const preview = card.querySelector('.vr-preview');
+                    if (preview) preview.remove();
                 }
             }
 
@@ -214,7 +222,7 @@ class FocalArcCarousel {
             }
 
             card.style.filter = `brightness(${1 - (absDistance * 0.2)})`;
-            card.style.transform = `translateX(${xOffset}px) translateZ(${zOffset}px) rotateY(${yRotation}deg) scale(${scale})`;
+            card.style.transform = `translate3d(${xOffset}px,0,${zOffset}px) rotateY(${yRotation}deg) scale(${scale})`;
             card.style.zIndex = zIndex;
             card.style.opacity = Math.max(0, opacity);
         });
@@ -244,6 +252,25 @@ class FocalArcCarousel {
         this.targetOffset = Math.round(this.targetOffset);
         this.currentX = 0;
     }
+
+    setupVisibilityObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!this.animationFrame) {
+                        this.startEngine();
+                    }
+                } else {
+                    if (this.animationFrame) {
+                        cancelAnimationFrame(this.animationFrame);
+                        this.animationFrame = null;
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(this.container);
+    }
 }
 
 window.VerticalVideoCarouselWidget = function (data) {
@@ -262,7 +289,7 @@ window.VerticalVideoCarouselWidget = function (data) {
     // Solución más eficiente: multiplicar el array original de videos antes de inyectarlos al HTML.
     // Triplicar la lista asegura que haya suficientes tarjetas físicas reales para que las 
     // tarjetas ocultas nunca tengan que cruzar en medio de tu vista mientras rotas.
-    const minimumCardsRequired = 15;
+    const minimumCardsRequired = 9;
     let extendedVideos = [...data.videos];
     while (extendedVideos.length < minimumCardsRequired) {
         extendedVideos = extendedVideos.concat(data.videos); // Duplica, triplica, etc.
@@ -271,6 +298,7 @@ window.VerticalVideoCarouselWidget = function (data) {
     const itemsHtml = extendedVideos.map(vimeoId => {
         return `
                 <div class="vr-video-card">
+                     <img class="vr-preview" src="https://vumbnail.com/${vimeoId}.jpg" alt="Video preview">
                      <iframe data-src="https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&muted=1&loop=1&autopause=0" 
                             frameborder="0" 
                             loading="lazy"

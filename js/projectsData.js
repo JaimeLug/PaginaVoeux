@@ -8,20 +8,25 @@ const PROJECTS_DATA = {
 
     'ool-wellness': {
         id: 'ool-wellness',
-        brand: 'OOL WELLNESS FOR ALL',
+        order: 1,
+        coverPositionY: '30%', // <-- Ajusta el encuadre vertical (e.g., 'top', 'bottom', '20%', 'center')
+        brand: 'Ool wellness for',
+        client: 'Ool Wellness For All',
+        services: 'FOTOGRAFÍA, VIDEO, EDICIÓN EN TIEMPO REAL, GESTIÓN DE REDES SOCIALES, VUELO DE DRONE, REDACCIÓN DE COPYS',
+        year: '2025',
         title: 'RETREAT OOL WELLNESS',
         gridSpan: 2,
         description: [
-            'Estuvimos presentes en el primer retiro wellness de OOL Wellness For All, una experiencia de tres días realizada en Hotel Xcaret Arte, diseñada para conectar movimiento, bienestar y comunidad.',
-            'Desarrollamos cobertura fotográfica y audiovisual completa, incluyendo tomas aéreas con dron, para capturar la diversidad de actividades: cycling, entrenamiento funcional, dinámicas acuáticas, gastronomía y talleres. El enfoque fue transmitir equilibrio entre energía y contemplación, mostrando la experiencia desde dentro.',
-            'La cobertura se realizó en tiempo real, con entrega inmediata de fotografías y video listos para redes sociales, además del manejo activo de las plataformas durante el evento. Esto permitió generar interacción orgánica, mantener conversación constante y fortalecer el sentido de comunidad mientras el retiro seguía en curso.'
+            'Estuvimos presentes en el primer Retiro OOL Wellness For All, una experiencia de tres días realizada en Hotel Xcaret Arte, diseñada para conectar movimiento, bienestar y comunidad.',
+            'Nuestro equipo desarrolló cobertura fotográfica y audiovisual completa, incluyendo tomas aéreas, capturando la energía de sesiones de cycling, entrenamiento funcional, actividades acuáticas, talleres y experiencias gastronómicas.',
+            'El contenido fue producido y entregado en tiempo real, permitiendo ampliar la experiencia en plataformas digitales mientras el retiro se desarrollaba. En Voeux Media no solo documentamos eventos; transformamos experiencias en narrativas visuales.'
         ],
         highlight: 'Más que documentar un evento, amplificamos una experiencia.',
         mediaSlug: 'retreat_ool_wellness',
         content_blocks: [
             {
                 type: 'vertical-video-carousel',
-                videos: ['1170845935', '1170845921', '1170845902', '1170845858']
+                videos: ['1171853513', '1171853478', '1171853297', '1171853546', '1171852659', '1171852676', '1171852612']
             },
             {
                 type: 'photo-grid',
@@ -42,10 +47,14 @@ const PROJECTS_DATA = {
 
     'red-bull': {
         id: 'red-bull',
-        brand: 'RED BULL',
+        order: 2,
+        brand: 'Red Bull',
+        client: 'Red Bull CDMX y Red Bull Península',
+        services: 'Fotografía, Video',
+        year: '2025-2026',
         title: 'RUTAS',
         description: [
-            'Para Red Bull desarrollamos rutas de cobertura fotográfica y audiovisual en puntos de venta estratégicos en Ciudad de México y la Península.',
+            'Desarrollamos rutas de cobertura fotográfica y audiovisual en puntos de venta estratégicos en Ciudad de México y la Península.',
             'El objetivo fue documentar la presencia activa de la marca en territorio, capturando su energía en eventos, activaciones y espacios comerciales. Más allá de registrar, construimos una narrativa visual que proyecta dinamismo, impacto y conexión directa con el consumidor.',
             'A través de fotografía y video, mostramos cómo la marca vive en cada punto, adaptándose al entorno y manteniendo su fuerza visual en cualquier escenario.'
         ],
@@ -65,7 +74,11 @@ const PROJECTS_DATA = {
 
     'circulo-dorado': {
         id: 'circulo-dorado',
-        brand: 'TOLKA',
+        order: 3,
+        brand: 'Tolka',
+        client: 'Tolka',
+        services: 'FOTOGRAFÍA, VIDEO, EDICIÓN EN TIEMPO REAL',
+        year: '2026',
         title: 'CÍRCULO DORADO',
         description: [
             'En Ciudad de México realizamos la cobertura audiovisual del Festival Círculo de Oro 2026, un encuentro que reconoce a lo mejor del mundo de la producción y las agencias de marketing en México.',
@@ -89,7 +102,11 @@ const PROJECTS_DATA = {
 
     'att': {
         id: 'att',
-        brand: 'TOLKA',
+        order: 4,
+        brand: 'Tolka',
+        client: 'Tolka',
+        services: 'FOTOGRAFÍA, VIDEO, EDICIÓN EN TIEMPO REAL',
+        year: '2025',
         title: 'AT&T',
         gridSpan: 2,
         description: [
@@ -104,10 +121,14 @@ const PROJECTS_DATA = {
 
     'multimedios': {
         id: 'multimedios',
-        brand: 'TOLKA',
+        order: 5,
+        brand: 'Tolka',
+        client: 'Tolka',
+        services: 'FOTOGRAFÍA, VIDEO, EDICIÓN EN TIEMPO REAL',
+        year: '2025',
         title: 'MULTIMEDIOS',
         description: [
-            'En Ciudad de México realizamos la cobertura audiovisual del aniversario de Multimedios, producido por TOLKA bajo el concepto "Oasis", un multiverso físico y digital que fusionaba distintas dimensiones representando cada unidad de negocio de la marca.',
+            'Cobertura audiovisual del aniversario de Multimedios, producido por TOLKA bajo el concepto "Oasis", un multiverso físico y digital que fusionaba distintas dimensiones representando cada unidad de negocio de la marca.',
             'Desarrollamos fotografía y video recap documentando los mundos creados para el evento, desde la experiencia inmersiva de acceso hasta los shows, escenarios y activaciones que transformaron el espacio en una narrativa tridimensional.'
         ],
         highlight: null,
@@ -124,7 +145,11 @@ const PROJECTS_DATA = {
 
     'power-flow': {
         id: 'power-flow',
-        brand: 'POWER&FLOW',
+        order: 6,
+        brand: 'Power&Flow',
+        client: 'Power&Flow',
+        services: 'FOTOGRAFÍA, VIDEO, EDICIÓN EN TIEMPO REAL, VUELO DE DRONE',
+        year: '2025',
         title: 'THE COLLECTIVE',
         description: [
             'Desde Phoenix, Arizona, documentamos el quinto aniversario de Power & Flow, el estudio fundado por Kristina Girod, reconocida por crear experiencias de alta energía que fortalecen cuerpo y comunidad.',
@@ -138,7 +163,11 @@ const PROJECTS_DATA = {
 
     'byd-club': {
         id: 'byd-club',
+        order: 7,
         brand: 'BYD',
+        client: 'BYD',
+        services: 'FOTOGRAFÍA, VIDEO, EDICIÓN EN TIEMPO REAL, VUELO DE DRONE',
+        year: '2025',
         title: 'BYD CLUB',
         description: [
             'Voeux Media estuvo presente en la cobertura de BYD Club Quintana Roo, un encuentro que reunió a entusiastas de la tecnología, la movilidad eléctrica y la adrenalina en un fin de semana de experiencias y conexión.',
@@ -162,60 +191,18 @@ const PROJECTS_DATA = {
         ]
     },
 
-    'xcaret-xtar': {
-        id: 'xcaret-xtar',
-        brand: 'XCARET XTAR',
-        title: 'XTAR AWARDS',
-        description: [
-            'Los XTAR Awards son el reconocimiento más importante dentro del ecosistema de Grupo Xcaret, una ceremonia que celebra la excelencia, el compromiso y la identidad de quienes hacen posible cada experiencia dentro de sus destinos.',
-            'Fuimos convocados para desarrollar la cobertura audiovisual completa del evento: desde los momentos previos al escenario hasta las premiaciones y la celebración. El enfoque fue documentar no solo el acto formal del reconocimiento, sino la emoción humana que lo rodea: el orgullo, la comunidad y el sentido de pertenencia.',
-            'El resultado fue una narrativa visual que refleja los valores de la marca y honra a sus protagonistas con la precisión y la energía que un evento de esta magnitud merece.'
-        ],
-        highlight: 'Cada galardón tiene una historia. Nosotros la contamos.',
-        heroVimeoId: '1170429174',
-        mediaSlug: 'xcaret_xtar',
-        brandLogo: 'imagenes/Logo_Xcaret_Xtar.png',
-        content_blocks: [
-            { type: 'horizontal-video', vimeoId: '1170429174' },
-            {
-                type: 'photo-grid',
-                images: ['imagenes/xcaret_xtar/poster.png']
-            }
-        ]
-    },
-
-    'xcaret-lealtad': {
-        id: 'xcaret-lealtad',
-        brand: 'XCARET',
-        title: 'XCARET LEALTAD',
-        gridSpan: 2,
-        description: [
-            'Para Grupo Xcaret desarrollamos la cobertura audiovisual de su programa de lealtad, una estrategia diseñada para fortalecer el vínculo entre la marca y sus visitantes más comprometidos.',
-            'Documentamos las activaciones, experiencias exclusivas y momentos de reconocimiento que forman parte del programa, capturando la autenticidad de cada interacción. El objetivo fue mostrar cómo la fidelidad se convierte en experiencia tangible dentro de los destinos de Xcaret.',
-            'Con una narrativa visual limpia y una paleta cercana a la identidad de la marca, entregamos contenido listo para comunicar valor, pertenencia y continuidad en cada plataforma.'
-        ],
-        highlight: null,
-        heroVimeoId: '1170429044',
-        mediaSlug: 'xcaret_lealtad',
-        brandLogo: 'imagenes/Logo_Xcaret.png',
-        content_blocks: [
-            { type: 'horizontal-video', vimeoId: '1170429044' },
-            {
-                type: 'photo-grid',
-                images: ['imagenes/xcaret_lealtad/poster.png']
-            }
-        ]
-    },
-
     'xaak': {
         id: 'xaak',
-        brand: 'XAAK',
+        order: 8,
+        brand: 'Xcaret',
+        client: 'Hotel Xcaret Arte',
+        services: 'Fotografía, Video',
+        year: '2026',
         title: 'REAPERTURA',
         gridSpan: 2,
         description: [
-            'Xaak Hotels es una marca que nació para redefinir la hospitalidad de lujo en el Caribe mexicano. Fuimos parte de su reapertura: un momento clave que marcó el regreso de una experiencia diseñada para quienes buscan algo más que un resort.',
-            'Desarrollamos la cobertura audiovisual del evento de reapertura, documentando la puesta en escena, los espacios, las interacciones y la energía de un relanzamiento que mezcló elegancia, identidad y destino.',
-            'Más que registrar un evento, construimos la primera narrativa visual del Xaak en su nueva etapa: una historia de apertura, movimiento y hospitalidad que se proyecta hacia el futuro.'
+            'Estuvimos presentes en la reapertura de Xaak, el restaurante de Hotel Xcaret Arte, donde la Chef Karime López presentó un nuevo menú degustación que parte del origen y del ingrediente como esencia de la experiencia culinaria.',
+            'Nuestro equipo realizó cobertura fotográfica y audiovisual de la inauguración, capturando la atmósfera del evento y los detalles que definen esta propuesta gastronómica.'
         ],
         highlight: 'El inicio de una nueva historia, contado en imágenes.',
         heroVimeoId: '1170836491',
@@ -240,8 +227,56 @@ const PROJECTS_DATA = {
         ]
     },
 
+    'xcaret-xtar': {
+        id: 'xcaret-xtar',
+        order: 9,
+        brand: 'XCARET XTAR',
+        title: 'XTAR AWARDS',
+        description: [
+            'Los XTAR Awards son el reconocimiento más importante dentro del ecosistema de Grupo Xcaret, una ceremonia que celebra la excelencia, el compromiso y la identidad de quienes hacen posible cada experiencia dentro de sus destinos.',
+            'Fuimos convocados para desarrollar la cobertura audiovisual completa del evento: desde los momentos previos al escenario hasta las premiaciones y la celebración. El enfoque fue documentar no solo el acto formal del reconocimiento, sino la emoción humana que lo rodea: el orgullo, la comunidad y el sentido de pertenencia.',
+            'El resultado fue una narrativa visual que refleja los valores de la marca y honra a sus protagonistas con la precisión y la energía que un evento de esta magnitud merece.'
+        ],
+        highlight: 'Cada galardón tiene una historia. Nosotros la contamos.',
+        heroVimeoId: '1170429174',
+        mediaSlug: 'xcaret_xtar',
+        brandLogo: 'imagenes/Logo_Xcaret_Xtar.png',
+        content_blocks: [
+            { type: 'horizontal-video', vimeoId: '1170429174' },
+            {
+                type: 'photo-grid',
+                images: ['imagenes/xcaret_xtar/poster.png']
+            }
+        ]
+    },
+
+    'xcaret-lealtad': {
+        id: 'xcaret-lealtad',
+        order: 10,
+        brand: 'XCARET',
+        title: 'XCARET LEALTAD',
+        gridSpan: 2,
+        description: [
+            'Para Grupo Xcaret desarrollamos la cobertura audiovisual de su programa de lealtad, una estrategia diseñada para fortalecer el vínculo entre la marca y sus visitantes más comprometidos.',
+            'Documentamos las activaciones, experiencias exclusivas y momentos de reconocimiento que forman parte del programa, capturando la autenticidad de cada interacción. El objetivo fue mostrar cómo la fidelidad se convierte en experiencia tangible dentro de los destinos de Xcaret.',
+            'Con una narrativa visual limpia y una paleta cercana a la identidad de la marca, entregamos contenido listo para comunicar valor, pertenencia y continuidad en cada plataforma.'
+        ],
+        highlight: null,
+        heroVimeoId: '1170429044',
+        mediaSlug: 'xcaret_lealtad',
+        brandLogo: 'imagenes/Logo_Xcaret.png',
+        content_blocks: [
+            { type: 'horizontal-video', vimeoId: '1170429044' },
+            {
+                type: 'photo-grid',
+                images: ['imagenes/xcaret_lealtad/poster.png']
+            }
+        ]
+    },
+
     'power-mas-flow': {
         id: 'power-mas-flow',
+        order: 11,
         brand: 'POWER&FLOW',
         title: 'POWER AND FLOW',
         description: [

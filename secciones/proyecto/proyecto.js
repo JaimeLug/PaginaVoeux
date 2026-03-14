@@ -59,6 +59,11 @@ window.addEventListener('section-loaded', async (e) => {
         heroImg.style.display = 'block';
         heroImg.alt = `Portada del proyecto ${project.title}`;
         heroImg.src = `imagenes/${project.mediaSlug}/portada.jpg`;
+        if (project.coverPositionY) {
+            heroImg.style.objectPosition = `50% ${project.coverPositionY}`;
+        } else {
+            heroImg.style.objectPosition = '50% 50%'; // Reset to default
+        }
         heroImg.onerror = () => {
             heroImg.src = `imagenes/${project.mediaSlug}/portada.png`;
             heroImg.onerror = null; // si tampoco existe .png, deja el placeholder implícito
@@ -67,6 +72,11 @@ window.addEventListener('section-loaded', async (e) => {
         vimeoHeroContainer.style.display = 'none';
         heroImg.style.display = 'block';
         heroImg.alt = `Portada del proyecto ${project.title}`;
+        if (project.coverPositionY) {
+            heroImg.style.objectPosition = `50% ${project.coverPositionY}`;
+        } else {
+            heroImg.style.objectPosition = '50% 50%';
+        }
     }
 
     // ── Dynamic Content Blocks (Widgets) ───────────────────────────────────────
