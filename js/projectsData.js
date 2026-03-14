@@ -9,7 +9,6 @@ const PROJECTS_DATA = {
     'ool-wellness': {
         id: 'ool-wellness',
         order: 1,
-        coverPositionY: '30%', // <-- Ajusta el encuadre vertical (e.g., 'top', 'bottom', '20%', 'center')
         brand: 'Ool wellness for',
         client: 'Ool Wellness For All',
         services: 'FOTOGRAFÍA, VIDEO, EDICIÓN EN TIEMPO REAL, GESTIÓN DE REDES SOCIALES, VUELO DE DRONE, REDACCIÓN DE COPYS',
@@ -200,6 +199,7 @@ const PROJECTS_DATA = {
         client: 'Hotel Xcaret Arte',
         services: 'Fotografía, Video',
         year: '2026',
+        coverPositionY: '40%', // <-- Ajusta el encuadre vertical (e.g., 'top', 'bottom', '20%', 'center')
         title: 'REAPERTURA',
         gridSpan: 2,
         description: [

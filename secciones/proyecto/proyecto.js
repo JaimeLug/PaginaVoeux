@@ -22,9 +22,11 @@ window.addEventListener('section-loaded', async (e) => {
     }
 
     // ── Brand & Title ──────────────────────────────────────────────────────────
-    document.getElementById('project-brand').textContent = project.brand;
-    document.getElementById('project-title').textContent = project.title;
-    document.getElementById('spec-cliente').textContent = project.brand;
+    document.getElementById('project-brand').textContent = project.brand || '';
+    document.getElementById('project-title').textContent = project.title || '';
+    document.getElementById('spec-cliente').textContent = project.client || project.brand || '';
+    document.getElementById('spec-servicios').textContent = project.services || '';
+    document.getElementById('spec-anio').textContent = project.year || '';
 
     // ── Description paragraphs ────────────────────────────────────────────────
     const descContainer = document.getElementById('project-description');
