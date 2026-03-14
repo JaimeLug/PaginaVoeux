@@ -35,6 +35,7 @@ const PROJECTS_DATA = {
                     'imagenes/retreat_ool_wellness/Voeux-Ool-15.jpg',
                     'imagenes/retreat_ool_wellness/Voeux-Ool-50.jpg',
                     'imagenes/retreat_ool_wellness/Voeux-Ool-61.jpg',
+                    'imagenes/retreat_ool_wellness/Voeux-Ool-86.jpg',
                     'imagenes/retreat_ool_wellness/VoeuxM-Ool-10.jpg',
                     'imagenes/retreat_ool_wellness/VoeuxM-Ool-33.jpg',
                     'imagenes/retreat_ool_wellness/VoeuxM-Ool-36.jpg',
@@ -90,6 +91,7 @@ const PROJECTS_DATA = {
             {
                 type: 'photo-grid',
                 images: [
+                    'imagenes/circulo_dorado/FestivalCirculoDeOro.jpg',
                     'imagenes/circulo_dorado/FestivalCirculoDeOro2026-50.jpg',
                     'imagenes/circulo_dorado/FestivalCirculoDeOro2026_2-3.jpg',
                     'imagenes/circulo_dorado/FestivalCirculoDeOro2026_3-19.jpg',
@@ -209,7 +211,10 @@ const PROJECTS_DATA = {
         mediaSlug: 'xaak',
         brandLogo: 'imagenes/Logo__Xaak.png',
         content_blocks: [
-            { type: 'horizontal-video', vimeoId: '1170836491' },
+            {
+                type: 'vertical-video-carousel',
+                videos: ['1170836491']
+            },
             {
                 type: 'photo-grid',
                 images: [
